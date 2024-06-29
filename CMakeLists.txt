@@ -110,6 +110,9 @@ add_library(
     src/networkprotocoldsl/operation/writeoctets.hpp
     src/networkprotocoldsl/operation/writestaticoctets.cpp
     src/networkprotocoldsl/operation/writestaticoctets.hpp
+    src/networkprotocoldsl/parser/node.hpp
+    src/networkprotocoldsl/parser/tree/expression.hpp
+    src/networkprotocoldsl/parser/tree/message.hpp
     src/networkprotocoldsl/support/mutexlockqueue.cpp
     src/networkprotocoldsl/support/mutexlockqueue.hpp
     src/networkprotocoldsl/support/notificationsignal.cpp

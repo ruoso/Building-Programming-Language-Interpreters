@@ -11,13 +11,17 @@
 namespace networkprotocoldsl::lexer {
 
 using Token = std::variant<
-    token::Identifier, token::keyword::For, token::keyword::In,
-    token::keyword::Message, token::keyword::Parts, token::keyword::Terminator,
-    token::keyword::Tokens, token::literal::Integer, token::literal::String,
-    token::punctuation::AngleBracketClose, token::punctuation::AngleBracketOpen,
-    token::punctuation::Comma, token::punctuation::CurlyBraceClose,
-    token::punctuation::CurlyBraceOpen, token::punctuation::Equal,
-    token::punctuation::KeyValueSeparator, token::punctuation::StatementEnd>;
+
+    token::punctuation::Modulo, token::punctuation::Divide,
+    token::punctuation::Multiply, token::punctuation::Minus, token::keyword::In,
+    token::keyword::Terminator, token::literal::String,
+    token::punctuation::Plus, token::keyword::For, token::keyword::Parts,
+    token::literal::Integer, token::punctuation::AngleBracketOpen,
+    token::punctuation::CurlyBraceClose, token::punctuation::Equal,
+    token::punctuation::StatementEnd, token::Identifier,
+    token::keyword::Message, token::keyword::Tokens,
+    token::punctuation::AngleBracketClose, token::punctuation::Comma,
+    token::punctuation::CurlyBraceOpen, token::punctuation::KeyValueSeparator>;
 
 }
 

@@ -50,6 +50,11 @@ const std::vector<TokenRule> token_rules = {
     {"\\{",
      [](TP_ARGS) { tokens.push_back(token::punctuation::CurlyBraceOpen()); }},
     {"=", [](TP_ARGS) { tokens.push_back(token::punctuation::Equal()); }},
+    {"-", [](TP_ARGS) { tokens.push_back(token::punctuation::Minus()); }},
+    {"\\+", [](TP_ARGS) { tokens.push_back(token::punctuation::Plus()); }},
+    {"\\*", [](TP_ARGS) { tokens.push_back(token::punctuation::Multiply()); }},
+    {"\\/", [](TP_ARGS) { tokens.push_back(token::punctuation::Divide()); }},
+    {"%", [](TP_ARGS) { tokens.push_back(token::punctuation::Modulo()); }},
     {":",
      [](TP_ARGS) {
        tokens.push_back(token::punctuation::KeyValueSeparator());

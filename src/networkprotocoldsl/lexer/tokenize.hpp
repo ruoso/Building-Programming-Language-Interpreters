@@ -9,7 +9,8 @@
 namespace networkprotocoldsl::lexer {
 
 std::optional<std::vector<Token>> tokenize(const std::string &input);
+using TokenIterator = std::vector<Token>::const_iterator;
 
-};
+}; // namespace networkprotocoldsl::lexer
 
 #endif

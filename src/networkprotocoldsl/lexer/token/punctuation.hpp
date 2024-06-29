@@ -8,8 +8,15 @@ struct AngleBracketOpen {};
 struct Comma {};
 struct CurlyBraceClose {};
 struct CurlyBraceOpen {};
+struct Divide {};
 struct Equal {};
 struct KeyValueSeparator {};
+struct Minus {};
+struct Modulo {};
+struct Multiply {};
+struct ParenthesisClose {};
+struct ParenthesisOpen {};
+struct Plus {};
 struct StatementEnd {};
 
 } // namespace networkprotocoldsl::lexer::token::punctuation

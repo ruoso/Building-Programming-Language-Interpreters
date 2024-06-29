@@ -30,44 +30,46 @@ add_library(
     src/networkprotocoldsl/executionstackframe.hpp
     src/networkprotocoldsl/interpretedprogram.cpp
     src/networkprotocoldsl/interpretedprogram.hpp
-    src/networkprotocoldsl/interpreter.cpp
-    src/networkprotocoldsl/interpreter.hpp
     src/networkprotocoldsl/interpretercollection.cpp
     src/networkprotocoldsl/interpretercollection.hpp
-    src/networkprotocoldsl/interpretercontext.cpp
-    src/networkprotocoldsl/interpretercontext.hpp
     src/networkprotocoldsl/interpretercollectionmanager.cpp
     src/networkprotocoldsl/interpretercollectionmanager.hpp
+    src/networkprotocoldsl/interpretercontext.cpp
+    src/networkprotocoldsl/interpretercontext.hpp
+    src/networkprotocoldsl/interpreter.cpp
+    src/networkprotocoldsl/interpreter.hpp
     src/networkprotocoldsl/interpreterrunner.cpp
     src/networkprotocoldsl/interpreterrunner.hpp
-    src/networkprotocoldsl/lexer/token.hpp
     src/networkprotocoldsl/lexer/token.cpp
-    src/networkprotocoldsl/lexer/tokenize.hpp
-    src/networkprotocoldsl/lexer/tokenize.cpp
-    src/networkprotocoldsl/lexer/token/identifier.hpp
+    src/networkprotocoldsl/lexer/token.hpp
     src/networkprotocoldsl/lexer/token/identifier.cpp
-    src/networkprotocoldsl/lexer/token/keyword.hpp
+    src/networkprotocoldsl/lexer/token/identifier.hpp
+    src/networkprotocoldsl/lexer/tokenize.cpp
+    src/networkprotocoldsl/lexer/tokenize.hpp
     src/networkprotocoldsl/lexer/token/keyword.cpp
-    src/networkprotocoldsl/lexer/token/literal.hpp
+    src/networkprotocoldsl/lexer/token/keyword.hpp
     src/networkprotocoldsl/lexer/token/literal.cpp
-    src/networkprotocoldsl/lexer/token/punctuation.hpp
+    src/networkprotocoldsl/lexer/token/literal.hpp
     src/networkprotocoldsl/lexer/token/punctuation.cpp
+    src/networkprotocoldsl/lexer/token/punctuation.hpp
     src/networkprotocoldsl/lexicalpad.cpp
     src/networkprotocoldsl/lexicalpad.hpp
-    src/networkprotocoldsl/operation.cpp
-    src/networkprotocoldsl/operation.hpp
     src/networkprotocoldsl/operation/add.cpp
     src/networkprotocoldsl/operation/add.hpp
+    src/networkprotocoldsl/operationconcepts.cpp
+    src/networkprotocoldsl/operationconcepts.hpp
+    src/networkprotocoldsl/operation.cpp
     src/networkprotocoldsl/operation/dynamiclist.cpp
     src/networkprotocoldsl/operation/dynamiclist.hpp
     src/networkprotocoldsl/operation/eq.cpp
     src/networkprotocoldsl/operation/eq.hpp
     src/networkprotocoldsl/operation/functioncall.cpp
-    src/networkprotocoldsl/operation/functioncall.hpp
     src/networkprotocoldsl/operation/functioncallforeach.cpp
     src/networkprotocoldsl/operation/functioncallforeach.hpp
+    src/networkprotocoldsl/operation/functioncall.hpp
     src/networkprotocoldsl/operation/generatelist.cpp
     src/networkprotocoldsl/operation/generatelist.hpp
+    src/networkprotocoldsl/operation.hpp
     src/networkprotocoldsl/operation/if.cpp
     src/networkprotocoldsl/operation/if.hpp
     src/networkprotocoldsl/operation/int32literal.cpp
@@ -79,9 +81,9 @@ add_library(
     src/networkprotocoldsl/operation/lexicalpadget.cpp
     src/networkprotocoldsl/operation/lexicalpadget.hpp
     src/networkprotocoldsl/operation/lexicalpadinitialize.cpp
-    src/networkprotocoldsl/operation/lexicalpadinitialize.hpp
     src/networkprotocoldsl/operation/lexicalpadinitializeglobal.cpp
     src/networkprotocoldsl/operation/lexicalpadinitializeglobal.hpp
+    src/networkprotocoldsl/operation/lexicalpadinitialize.hpp
     src/networkprotocoldsl/operation/lexicalpadset.cpp
     src/networkprotocoldsl/operation/lexicalpadset.hpp
     src/networkprotocoldsl/operation/multiply.cpp
@@ -110,7 +112,19 @@ add_library(
     src/networkprotocoldsl/operation/writeoctets.hpp
     src/networkprotocoldsl/operation/writestaticoctets.cpp
     src/networkprotocoldsl/operation/writestaticoctets.hpp
+    src/networkprotocoldsl/optree.cpp
+    src/networkprotocoldsl/optree.hpp
+    src/networkprotocoldsl/parser/grammar/expression.cpp
+    src/networkprotocoldsl/parser/grammar/expression.hpp
+    src/networkprotocoldsl/parser/grammar/message.cpp
+    src/networkprotocoldsl/parser/grammar/message.hpp
+    src/networkprotocoldsl/parser/grammar/property.cpp
+    src/networkprotocoldsl/parser/grammar/property.hpp
     src/networkprotocoldsl/parser/node.hpp
+    src/networkprotocoldsl/parser/parse.cpp
+    src/networkprotocoldsl/parser/parse.hpp
+    src/networkprotocoldsl/parser/support/recursiveparser.cpp
+    src/networkprotocoldsl/parser/support/recursiveparser.hpp
     src/networkprotocoldsl/parser/tree/expression.hpp
     src/networkprotocoldsl/parser/tree/message.hpp
     src/networkprotocoldsl/support/mutexlockqueue.cpp
@@ -119,10 +133,6 @@ add_library(
     src/networkprotocoldsl/support/notificationsignal.hpp
     src/networkprotocoldsl/support/transactionalcontainer.cpp
     src/networkprotocoldsl/support/transactionalcontainer.hpp
-    src/networkprotocoldsl/operationconcepts.cpp
-    src/networkprotocoldsl/operationconcepts.hpp
-    src/networkprotocoldsl/optree.cpp
-    src/networkprotocoldsl/optree.hpp
     src/networkprotocoldsl/value.cpp
     src/networkprotocoldsl/value.hpp
 )

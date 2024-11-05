@@ -30,28 +30,23 @@ struct ParameterizedIdentifierReference;
 using ParameterizedIdentifierReferencePtr =
     std::shared_ptr<const ParameterizedIdentifierReference>;
 
-struct Property;
-using PropertyPtr = std::shared_ptr<const Property>;
-
 struct StringLiteral {
   std::string value;
 };
 using StringLiteralPtr = std::shared_ptr<const StringLiteral>;
 
+struct Parenthetical;
+using ParentheticalPtr = std::shared_ptr<const Parenthetical>;
+
 using Expression =
     std::variant<IntegerLiteralPtr, StringLiteralPtr, IdentifierReferencePtr,
                  ParameterizedIdentifierReferencePtr, BinaryOperatorPtr,
-                 PropertyPtr, DictionaryPtr>;
-
-struct Property {
-  std::string name;
-  Expression value;
-};
+                 DictionaryPtr, ParentheticalPtr>;
 
 struct BinaryOperator {
   lexer::Token operator_token;
-  Expression rhs;
   Expression lhs;
+  Expression rhs;
 };
 
 struct Dictionary : public std::unordered_map<std::string, Expression> {};
@@ -59,6 +54,10 @@ struct Dictionary : public std::unordered_map<std::string, Expression> {};
 struct ParameterizedIdentifierReference {
   IdentifierReferencePtr identifier;
   DictionaryPtr parameters;
+};
+
+struct Parenthetical {
+  Expression expr;
 };
 
 } // namespace networkprotocoldsl::parser::tree

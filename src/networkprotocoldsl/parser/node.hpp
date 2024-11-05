@@ -4,13 +4,15 @@
 #include <networkprotocoldsl/lexer/tokenize.hpp>
 #include <networkprotocoldsl/parser/tree/expression.hpp>
 #include <networkprotocoldsl/parser/tree/message.hpp>
+#include <networkprotocoldsl/parser/tree/property.hpp>
 
 #include <optional>
 #include <variant>
 
 namespace networkprotocoldsl::parser {
 
-using ParseNode = std::variant<tree::MessagePtr, tree::Expression>;
+using ParseNode =
+    std::variant<tree::MessagesPtr, tree::MessagePtr, tree::PropertyPtr, tree::Expression>;
 
 struct ParseStateReturn {
   std::optional<ParseNode> node;

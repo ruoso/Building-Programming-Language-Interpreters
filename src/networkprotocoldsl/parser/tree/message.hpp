@@ -16,6 +16,10 @@ struct Message {
 };
 using MessagePtr = std::shared_ptr<const Message>;
 
+struct Messages : public std::unordered_map<std::string, MessagePtr> {
+};
+using MessagesPtr = std::shared_ptr<const Messages>;
+
 } // namespace networkprotocoldsl::parser::tree
 
 #endif

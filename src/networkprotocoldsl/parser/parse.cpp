@@ -12,25 +12,14 @@
 
 namespace networkprotocoldsl::parser {
 
-std::optional<std::vector<tree::MessagePtr>> parse(lexer::TokenIterator begin,
-                                                   lexer::TokenIterator end) {
-  std::vector<tree::MessagePtr> ret;
-
-  while (true) {
-    auto match = grammar::Message::parse(begin, end);
-    if (!match.node.has_value())
-      break;
-    auto node = match.node.value();
-    if (!std::holds_alternative<tree::MessagePtr>(node))
-      return std::nullopt;
-    auto msg = std::get<tree::MessagePtr>(node);
-    ret.push_back(msg);
-    begin = match.begin;
-  }
-  if (begin != end)
+std::optional<tree::MessagesPtr> parse(lexer::TokenIterator begin,
+                                       lexer::TokenIterator end) {
+  auto ret = grammar::Messages::parse(begin, end);
+  if (ret.node.has_value() && std::holds_alternative<tree::MessagesPtr>(ret.node.value())) {
+    return std::get<tree::MessagesPtr>(ret.node.value());
+  } else {
     return std::nullopt;
-
-  return ret;
+  }
 }
 
 } // namespace networkprotocoldsl::parser

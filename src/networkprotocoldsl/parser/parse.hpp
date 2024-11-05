@@ -9,8 +9,8 @@
 
 namespace networkprotocoldsl::parser {
 
-std::optional<std::vector<tree::MessagePtr>> parse(lexer::TokenIterator begin,
-                                                   lexer::TokenIterator end);
+std::optional<tree::MessagesPtr> parse(lexer::TokenIterator begin,
+                                       lexer::TokenIterator end);
 
 }
 

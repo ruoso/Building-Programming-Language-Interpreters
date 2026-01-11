@@ -146,3 +146,41 @@ TEST(tokenizer, escape_replace_syntax) {
       << "Token 17 should be '}'";
 }
 
+TEST(tokenizer, windows_line_endings) {
+  using namespace networkprotocoldsl;
+  // Test tokenizing with Windows line endings (CRLF)
+  std::string input("message \"Test\" {\r\n  when: Open;\r\n}");
+  auto output = lexer::tokenize(input);
+  ASSERT_TRUE(output.has_value()) << "Tokenization should succeed with Windows line endings";
+  ASSERT_EQ(8, output->size()) << "Should have 8 tokens";
+
+  ASSERT_TRUE(std::holds_alternative<lexer::token::keyword::Message>(output->at(0)));
+  ASSERT_TRUE(std::holds_alternative<lexer::token::literal::String>(output->at(1)));
+  ASSERT_EQ("Test", std::get<lexer::token::literal::String>(output->at(1)).value);
+  ASSERT_TRUE(std::holds_alternative<lexer::token::punctuation::CurlyBraceOpen>(output->at(2)));
+  ASSERT_TRUE(std::holds_alternative<lexer::token::Identifier>(output->at(3)));
+  ASSERT_TRUE(std::holds_alternative<lexer::token::punctuation::KeyValueSeparator>(output->at(4)));
+  ASSERT_TRUE(std::holds_alternative<lexer::token::Identifier>(output->at(5)));
+  ASSERT_TRUE(std::holds_alternative<lexer::token::punctuation::StatementEnd>(output->at(6)));
+  ASSERT_TRUE(std::holds_alternative<lexer::token::punctuation::CurlyBraceClose>(output->at(7)));
+}
+
+TEST(tokenizer, mixed_line_endings) {
+  using namespace networkprotocoldsl;
+  // Test tokenizing with mixed line endings
+  // message "A" { when: Open; } message "B" { } = 12 tokens
+  std::string input("message \"A\" {\n  when: Open;\r\n}\r\nmessage \"B\" {\n}");
+  auto output = lexer::tokenize(input);
+  ASSERT_TRUE(output.has_value()) << "Tokenization should succeed with mixed line endings";
+  ASSERT_EQ(12, output->size()) << "Should have 12 tokens";
+}
+
+TEST(tokenizer, crlf_comment) {
+  using namespace networkprotocoldsl;
+  // Test single-line comments with Windows line endings
+  std::string input("message \"Test\" { // comment\r\n  when: Open;\r\n}");
+  auto output = lexer::tokenize(input);
+  ASSERT_TRUE(output.has_value()) << "Tokenization should succeed with CRLF after comment";
+  ASSERT_EQ(8, output->size()) << "Comment should be stripped, leaving 8 tokens";
+}
+

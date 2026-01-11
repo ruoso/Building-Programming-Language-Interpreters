@@ -34,7 +34,7 @@ value::Octets _o(const std::string &str) {
   return value::Octets{std::make_shared<std::string>(str)};
 }
 
-TEST(LibuvIORunnerTest, Complete) {
+TEST(Test_028_libuv_io_runner, Complete) {
   std::string test_file =
       std::string(TEST_DATA_DIR) + "/023-source-code-http-client-server.txt";
 
@@ -198,7 +198,7 @@ TEST(LibuvIORunnerTest, Complete) {
   // ...existing assertions to validate responses...
 }
 
-TEST(LibuvIORunnerTest, ConnectionRefused) {
+TEST(Test_028_libuv_io_runner, ConnectionRefused) {
   std::string test_file =
       std::string(TEST_DATA_DIR) + "/023-source-code-http-client-server.txt";
 

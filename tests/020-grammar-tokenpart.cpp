@@ -8,7 +8,7 @@
 
 using namespace networkprotocoldsl;
 
-TEST(TokenPartTest, SingleTokenPartMatchString) {
+TEST(Test_020_grammar_tokenpart, SingleTokenPartMatchString) {
   auto maybe_tokens = lexer::tokenize("\"stringLiteral\"");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -23,7 +23,7 @@ TEST(TokenPartTest, SingleTokenPartMatchString) {
   ASSERT_EQ(string_literal->value, "stringLiteral");
 }
 
-TEST(TokenPartTest, SingleTokenPartMatchIdentifier) {
+TEST(Test_020_grammar_tokenpart, SingleTokenPartMatchIdentifier) {
   auto maybe_tokens = lexer::tokenize("identifier");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -38,7 +38,7 @@ TEST(TokenPartTest, SingleTokenPartMatchIdentifier) {
   ASSERT_EQ(id->name, "identifier");
 }
 
-TEST(TokenPartTest, TokenSequence2) {
+TEST(Test_020_grammar_tokenpart, TokenSequence2) {
   auto maybe_tokens =
       lexer::tokenize("tokens { \"stringLiteral\" identifier }");
   ASSERT_TRUE(maybe_tokens.has_value());
@@ -59,7 +59,7 @@ TEST(TokenPartTest, TokenSequence2) {
   ASSERT_EQ("identifier", part2->name);
 }
 
-TEST(TokenPartTest, Terminator) {
+TEST(Test_020_grammar_tokenpart, Terminator) {
   auto maybe_tokens = lexer::tokenize("terminator { \";\" }");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -72,7 +72,7 @@ TEST(TokenPartTest, Terminator) {
   ASSERT_EQ(seq->value->value, ";");
 }
 
-TEST(TokenPartTest, EscapeReplacement) {
+TEST(Test_020_grammar_tokenpart, EscapeReplacement) {
   // Test parsing escape=replace<"\n", "\r\n "> syntax
   auto maybe_tokens = lexer::tokenize(R"(replace<"\n", "\r\n ">)");
   ASSERT_TRUE(maybe_tokens.has_value());
@@ -87,7 +87,7 @@ TEST(TokenPartTest, EscapeReplacement) {
   ASSERT_EQ("\r\n ", escape->sequence) << "Escape sequence should be CRLF+space";
 }
 
-TEST(TokenPartTest, TokenSequenceOption) {
+TEST(Test_020_grammar_tokenpart, TokenSequenceOption) {
   // Test parsing terminator="\r\n" option
   auto maybe_tokens = lexer::tokenize(R"(terminator="\r\n")");
   ASSERT_TRUE(maybe_tokens.has_value());
@@ -103,7 +103,7 @@ TEST(TokenPartTest, TokenSequenceOption) {
   ASSERT_EQ("\r\n", terminator_value);
 }
 
-TEST(TokenPartTest, TokenSequenceOptionWithEscape) {
+TEST(Test_020_grammar_tokenpart, TokenSequenceOptionWithEscape) {
   // Test parsing escape=replace<"\n", "\r\n "> option
   auto maybe_tokens = lexer::tokenize(R"(escape=replace<"\n", "\r\n ">)");
   ASSERT_TRUE(maybe_tokens.has_value());
@@ -120,7 +120,7 @@ TEST(TokenPartTest, TokenSequenceOptionWithEscape) {
   ASSERT_EQ("\r\n ", escape_value.sequence);
 }
 
-TEST(TokenPartTest, TokenSequenceWithOptions) {
+TEST(Test_020_grammar_tokenpart, TokenSequenceWithOptions) {
   // Test parsing tokens<terminator="\r\n", escape=replace<"\n", "\r\n ">> { host }
   auto maybe_tokens = lexer::tokenize(
       R"(tokens<terminator="\r\n", escape=replace<"\n", "\r\n ">> { host })");

@@ -8,7 +8,7 @@
 
 using namespace networkprotocoldsl;
 
-TEST(IdentifierReferenceTest, IdentifierReferenceMatch) {
+TEST(Test_017_grammar_identifier, IdentifierReferenceMatch) {
   std::vector<lexer::Token> tokens = {lexer::token::Identifier("myIdentifier")};
   auto result = parser::grammar::IdentifierReference::parse(tokens.cbegin(),
                                                             tokens.cend());
@@ -19,7 +19,7 @@ TEST(IdentifierReferenceTest, IdentifierReferenceMatch) {
             "myIdentifier");
 }
 
-TEST(IdentifierReferenceTest, IdentifierReferenceWithMemberMatch) {
+TEST(Test_017_grammar_identifier, IdentifierReferenceWithMemberMatch) {
   auto maybe_tokens = lexer::tokenize("myIdentifier.member");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> tokens = maybe_tokens.value();

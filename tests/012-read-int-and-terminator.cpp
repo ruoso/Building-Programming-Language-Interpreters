@@ -13,7 +13,7 @@
 #include <string_view>
 #include <variant>
 
-TEST(read_int_and_terminator, good_read) {
+TEST(Test_012_read_int_and_terminator, good_read) {
   using namespace networkprotocoldsl;
 
   const std::string_view input = "a=42 ";

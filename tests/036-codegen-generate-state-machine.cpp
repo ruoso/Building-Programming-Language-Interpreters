@@ -11,7 +11,7 @@
 using namespace networkprotocoldsl;
 using namespace networkprotocoldsl::codegen;
 
-class GenerateStateMachineTest : public ::testing::Test {
+class Test_036_codegen_generate_state_machine_GenerateStateMachineTest : public ::testing::Test {
 protected:
   std::shared_ptr<const sema::ast::Protocol> protocol_;
   std::unique_ptr<OutputContext> ctx_;
@@ -41,20 +41,20 @@ protected:
   }
 };
 
-TEST_F(GenerateStateMachineTest, GeneratesHeader) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, GeneratesHeader) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_FALSE(result.header.empty());
   EXPECT_TRUE(result.errors.empty());
 }
 
-TEST_F(GenerateStateMachineTest, GeneratesSource) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, GeneratesSource) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_FALSE(result.source.empty());
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasGuard) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasGuard) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#ifndef") != std::string::npos);
@@ -62,54 +62,54 @@ TEST_F(GenerateStateMachineTest, HeaderHasGuard) {
   EXPECT_TRUE(result.header.find("#endif") != std::string::npos);
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasNamespace) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasNamespace) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("namespace test::http") != std::string::npos);
 }
 
-TEST_F(GenerateStateMachineTest, HeaderIncludesParser) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderIncludesParser) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#include \"parser.hpp\"") !=
               std::string::npos);
 }
 
-TEST_F(GenerateStateMachineTest, HeaderIncludesSerializer) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderIncludesSerializer) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#include \"serializer.hpp\"") !=
               std::string::npos);
 }
 
-TEST_F(GenerateStateMachineTest, HeaderIncludesStates) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderIncludesStates) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#include \"states.hpp\"") !=
               std::string::npos);
 }
 
-TEST_F(GenerateStateMachineTest, SourceIncludesHeader) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, SourceIncludesHeader) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.source.find("#include \"state_machine.hpp\"") !=
               std::string::npos);
 }
 
-TEST_F(GenerateStateMachineTest, SourceHasNamespace) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, SourceHasNamespace) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.source.find("namespace test::http") != std::string::npos);
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasOptionalInclude) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasOptionalInclude) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // State machine uses std::optional for pending message storage
   EXPECT_TRUE(result.header.find("#include <optional>") != std::string::npos);
 }
 
-TEST_F(GenerateStateMachineTest, HeaderDoesNotHaveUnusedIncludes) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderDoesNotHaveUnusedIncludes) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // These includes were removed as they're not used
@@ -125,7 +125,7 @@ TEST_F(GenerateStateMachineTest, HeaderDoesNotHaveUnusedIncludes) {
       << "Should not include unused <map>";
 }
 
-TEST_F(GenerateStateMachineTest, ClosingBracesMatch) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, ClosingBracesMatch) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // Count opening and closing braces - they should match
@@ -138,7 +138,7 @@ TEST_F(GenerateStateMachineTest, ClosingBracesMatch) {
   EXPECT_EQ(open_braces, close_braces) << "Braces should be balanced in header";
 }
 
-TEST_F(GenerateStateMachineTest, NoErrorsReported) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, NoErrorsReported) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.errors.empty())
@@ -146,49 +146,49 @@ TEST_F(GenerateStateMachineTest, NoErrorsReported) {
       << (result.errors.empty() ? "" : result.errors[0]);
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasClientStateMachine) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasClientStateMachine) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("class ClientStateMachine") != std::string::npos)
       << "Should have ClientStateMachine class";
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasServerStateMachine) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasServerStateMachine) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("class ServerStateMachine") != std::string::npos)
       << "Should have ServerStateMachine class";
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasOnBytesReceivedMethod) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasOnBytesReceivedMethod) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("on_bytes_received") != std::string::npos)
       << "Should have on_bytes_received method";
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasPendingOutputMethod) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasPendingOutputMethod) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("pending_output") != std::string::npos)
       << "Should have pending_output method";
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasSendMethods) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasSendMethods) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("void send_") != std::string::npos)
       << "Should have send_ methods for outgoing messages";
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasCurrentStateMethod) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasCurrentStateMethod) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("current_state()") != std::string::npos)
       << "Should have current_state method";
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasStateSpecificTakeMessageMethods) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasStateSpecificTakeMessageMethods) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // Should have state-specific take_*_message methods instead of generic take_message
@@ -201,21 +201,21 @@ TEST_F(GenerateStateMachineTest, HeaderHasStateSpecificTakeMessageMethods) {
       << "Should have message_state method";
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasIsClosedMethod) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasIsClosedMethod) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("is_closed()") != std::string::npos)
       << "Should have is_closed method";
 }
 
-TEST_F(GenerateStateMachineTest, SourceHasStateSwitch) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, SourceHasStateSwitch) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.source.find("switch (current_state_)") != std::string::npos)
       << "Should have state-based dispatch";
 }
 
-TEST_F(GenerateStateMachineTest, SourceBalancedBraces) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, SourceBalancedBraces) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   int open_braces = 0;
@@ -227,35 +227,35 @@ TEST_F(GenerateStateMachineTest, SourceBalancedBraces) {
   EXPECT_EQ(open_braces, close_braces) << "Braces should be balanced in source";
 }
 
-TEST_F(GenerateStateMachineTest, HeaderIncludesDataTypes) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderIncludesDataTypes) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#include \"data_types.hpp\"") != std::string::npos)
       << "Should include data_types.hpp";
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasAutoGeneratedComment) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasAutoGeneratedComment) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("auto-generated") != std::string::npos)
       << "Header should have auto-generated comment";
 }
 
-TEST_F(GenerateStateMachineTest, SourceHasAutoGeneratedComment) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, SourceHasAutoGeneratedComment) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.source.find("auto-generated") != std::string::npos)
       << "Source should have auto-generated comment";
 }
 
-TEST_F(GenerateStateMachineTest, HeaderHasOnEofMethod) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, HeaderHasOnEofMethod) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("void on_eof()") != std::string::npos)
       << "Should have on_eof method for EOF handling";
 }
 
-TEST_F(GenerateStateMachineTest, SourceHasOnEofImplementation) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, SourceHasOnEofImplementation) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // on_eof should notify parsers
@@ -265,7 +265,7 @@ TEST_F(GenerateStateMachineTest, SourceHasOnEofImplementation) {
       << "on_eof should call parser's on_eof";
 }
 
-TEST_F(GenerateStateMachineTest, InitialStateIsOpen) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, InitialStateIsOpen) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // The initial state should be Open, not the alphabetically first state
@@ -274,7 +274,7 @@ TEST_F(GenerateStateMachineTest, InitialStateIsOpen) {
       << result.header.substr(0, 2000);
 }
 
-TEST_F(GenerateStateMachineTest, ClientStateMachineHasParserMembers) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, ClientStateMachineHasParserMembers) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // Client state machine should have parser members for parsing server responses
@@ -292,7 +292,7 @@ TEST_F(GenerateStateMachineTest, ClientStateMachineHasParserMembers) {
       << "ClientStateMachine should have parser members";
 }
 
-TEST_F(GenerateStateMachineTest, ServerStateMachineHasParserMembers) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineTest, ServerStateMachineHasParserMembers) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // Server state machine should have parser members for parsing client commands
@@ -307,7 +307,7 @@ TEST_F(GenerateStateMachineTest, ServerStateMachineHasParserMembers) {
 }
 
 // SMTP-specific tests using the real SMTP protocol definition
-class GenerateStateMachineSMTPTest : public ::testing::Test {
+class Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest : public ::testing::Test {
 protected:
   std::shared_ptr<const sema::ast::Protocol> protocol_;
   std::unique_ptr<OutputContext> ctx_;
@@ -337,7 +337,7 @@ protected:
   }
 };
 
-TEST_F(GenerateStateMachineSMTPTest, GeneratesValidCode) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, GeneratesValidCode) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   EXPECT_FALSE(result.header.empty());
@@ -346,7 +346,7 @@ TEST_F(GenerateStateMachineSMTPTest, GeneratesValidCode) {
       << "Errors: " << (result.errors.empty() ? "" : result.errors[0]);
 }
 
-TEST_F(GenerateStateMachineSMTPTest, InitialStateIsOpen) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, InitialStateIsOpen) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // SMTP state machine should start at Open state
@@ -354,7 +354,7 @@ TEST_F(GenerateStateMachineSMTPTest, InitialStateIsOpen) {
       << "Initial state should be State::Open for SMTP protocol";
 }
 
-TEST_F(GenerateStateMachineSMTPTest, HasClientSendEHLOStateCase) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, HasClientSendEHLOStateCase) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // Server should have a case for ClientSendEHLO state to parse EHLO commands
@@ -362,7 +362,7 @@ TEST_F(GenerateStateMachineSMTPTest, HasClientSendEHLOStateCase) {
       << "ServerStateMachine should handle ClientSendEHLO state";
 }
 
-TEST_F(GenerateStateMachineSMTPTest, HasSMTPEHLOCommandParser) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, HasSMTPEHLOCommandParser) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // Server should have an EHLO command parser member
@@ -370,7 +370,7 @@ TEST_F(GenerateStateMachineSMTPTest, HasSMTPEHLOCommandParser) {
       << "Should have SMTPEHLOCommand parser for parsing client EHLO commands";
 }
 
-TEST_F(GenerateStateMachineSMTPTest, ServerCanParseEHLOInClientSendEHLOState) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, ServerCanParseEHLOInClientSendEHLOState) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // Find the ClientSendEHLO case in the source
@@ -388,7 +388,7 @@ TEST_F(GenerateStateMachineSMTPTest, ServerCanParseEHLOInClientSendEHLOState) {
       << ehlo_case_block;
 }
 
-TEST_F(GenerateStateMachineSMTPTest, SendMethodsTransitionToNextState) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, SendMethodsTransitionToNextState) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // send_SMTPServerGreeting should transition from Open to ClientSendEHLO
@@ -406,7 +406,7 @@ TEST_F(GenerateStateMachineSMTPTest, SendMethodsTransitionToNextState) {
       << send_func;
 }
 
-TEST_F(GenerateStateMachineSMTPTest, BytesWrittenManagesBuffer) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, BytesWrittenManagesBuffer) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // bytes_written should manage the output buffer
@@ -426,7 +426,7 @@ TEST_F(GenerateStateMachineSMTPTest, BytesWrittenManagesBuffer) {
       << "bytes_written should manage output buffer. Function:\n" << bw_func;
 }
 
-TEST_F(GenerateStateMachineSMTPTest, OnBytesReceivedHasClientSendEHLOCase) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, OnBytesReceivedHasClientSendEHLOCase) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // Find ServerStateMachine::on_bytes_received
@@ -450,7 +450,7 @@ TEST_F(GenerateStateMachineSMTPTest, OnBytesReceivedHasClientSendEHLOCase) {
       << "ClientSendEHLO case should be in ServerStateMachine::on_bytes_received";
 }
 
-TEST_F(GenerateStateMachineSMTPTest, ClientSendEHLOCaseCallsEHLOParser) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, ClientSendEHLOCaseCallsEHLOParser) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   // Find ServerStateMachine::on_bytes_received
@@ -480,7 +480,7 @@ TEST_F(GenerateStateMachineSMTPTest, ClientSendEHLOCaseCallsEHLOParser) {
       << "Should call parse method. Block:\n" << ehlo_block;
 }
 
-TEST_F(GenerateStateMachineSMTPTest, ClientSendEHLOCaseSetsHasMessage) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, ClientSendEHLOCaseSetsHasMessage) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   auto func_pos = result.source.find("ServerStateMachine::on_bytes_received");
@@ -502,7 +502,7 @@ TEST_F(GenerateStateMachineSMTPTest, ClientSendEHLOCaseSetsHasMessage) {
       << "Should set has_message_ = true. Block:\n" << ehlo_block;
 }
 
-TEST_F(GenerateStateMachineSMTPTest, ClientSendEHLOCaseUpdatesConsumed) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, ClientSendEHLOCaseUpdatesConsumed) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   auto func_pos = result.source.find("ServerStateMachine::on_bytes_received");
@@ -528,7 +528,7 @@ TEST_F(GenerateStateMachineSMTPTest, ClientSendEHLOCaseUpdatesConsumed) {
       << "Should use result.consumed. Block:\n" << ehlo_block;
 }
 
-TEST_F(GenerateStateMachineSMTPTest, ClientSendEHLOCaseTransitionsToEHLOResponse) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, ClientSendEHLOCaseTransitionsToEHLOResponse) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   auto func_pos = result.source.find("ServerStateMachine::on_bytes_received");
@@ -550,7 +550,7 @@ TEST_F(GenerateStateMachineSMTPTest, ClientSendEHLOCaseTransitionsToEHLOResponse
       << "Should transition to AwaitServerEHLOResponse. Block:\n" << ehlo_block;
 }
 
-TEST_F(GenerateStateMachineSMTPTest, OnBytesReceivedReturnsConsumed) {
+TEST_F(Test_036_codegen_generate_state_machine_GenerateStateMachineSMTPTest, OnBytesReceivedReturnsConsumed) {
   auto result = generate_state_machine(*ctx_, *info_);
 
   auto func_pos = result.source.find("ServerStateMachine::on_bytes_received");

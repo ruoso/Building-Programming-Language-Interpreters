@@ -8,7 +8,7 @@
 
 using namespace networkprotocoldsl;
 
-TEST(TypeParameterTest, TypeParameterValueMatchInteger) {
+TEST(Test_018_grammar_typeparameter, TypeParameterValueMatchInteger) {
   auto maybe_tokens = lexer::tokenize("42");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -22,7 +22,7 @@ TEST(TypeParameterTest, TypeParameterValueMatchInteger) {
             42);
 }
 
-TEST(TypeParameterTest, TypeParameterValueMatchBoolean) {
+TEST(Test_018_grammar_typeparameter, TypeParameterValueMatchBoolean) {
   auto maybe_tokens = lexer::tokenize("True");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -36,7 +36,7 @@ TEST(TypeParameterTest, TypeParameterValueMatchBoolean) {
             true);
 }
 
-TEST(TypeParameterTest, TypeParameterPairMatch) {
+TEST(Test_018_grammar_typeparameter, TypeParameterPairMatch) {
   auto maybe_tokens = lexer::tokenize("param=42");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -53,7 +53,7 @@ TEST(TypeParameterTest, TypeParameterPairMatch) {
             42);
 }
 
-TEST(TypeParameterTest, TypeParametersMatch) {
+TEST(Test_018_grammar_typeparameter, TypeParametersMatch) {
   auto maybe_tokens = lexer::tokenize("<param=42>");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -70,7 +70,7 @@ TEST(TypeParameterTest, TypeParametersMatch) {
       42);
 }
 
-TEST(TypeParameterTest, TypeParametersMatchMany) {
+TEST(Test_018_grammar_typeparameter, TypeParametersMatchMany) {
   auto maybe_tokens = lexer::tokenize("<param=42,other=True>");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -92,7 +92,7 @@ TEST(TypeParameterTest, TypeParametersMatchMany) {
       true);
 }
 
-TEST(TypeParameterTest, TypeMatch) {
+TEST(Test_018_grammar_typeparameter, TypeMatch) {
   auto maybe_tokens = lexer::tokenize("sometype");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -104,7 +104,7 @@ TEST(TypeParameterTest, TypeMatch) {
   ASSERT_EQ(type->name->name, "sometype");
 }
 
-TEST(TypeParameterTest, TypeMatchWithParameters) {
+TEST(Test_018_grammar_typeparameter, TypeMatchWithParameters) {
   auto maybe_tokens = lexer::tokenize("sometype<param=42>");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -121,7 +121,7 @@ TEST(TypeParameterTest, TypeMatchWithParameters) {
       42);
 }
 
-TEST(TypeParameterTest, TypeMatchWithParametersRecurse) {
+TEST(Test_018_grammar_typeparameter, TypeMatchWithParametersRecurse) {
   auto maybe_tokens = lexer::tokenize("sometype<param=foo<bar=42>>");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();

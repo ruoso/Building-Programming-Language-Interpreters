@@ -11,7 +11,7 @@
 #include <gtest/gtest.h>
 #include <variant>
 
-TEST(recursive_factorial, complete) {
+TEST(Test_009_recursive_factorial, complete) {
   using namespace networkprotocoldsl;
 
   operation::Int32Literal int_1(1);

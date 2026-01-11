@@ -4,7 +4,7 @@
 #include <cstring>
 #include <gtest/gtest.h>
 
-TEST(operator_if, run_else) {
+TEST(Test_006_operator_if, run_else) {
   using namespace networkprotocoldsl;
 
   operation::Int32Literal il1(10);
@@ -44,7 +44,7 @@ TEST(operator_if, run_else) {
   ASSERT_EQ(20, std::get<int32_t>(std::get<Value>(i1.get_result())));
 }
 
-TEST(operator_if, run_then) {
+TEST(Test_006_operator_if, run_then) {
   using namespace networkprotocoldsl;
 
   operation::Int32Literal il1(10);

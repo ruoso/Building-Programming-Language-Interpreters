@@ -4,7 +4,7 @@
 #include <cstring>
 #include <gtest/gtest.h>
 
-TEST(operator_lexicalpad, get_nameerror) {
+TEST(Test_008_lexicalpad, get_nameerror) {
   using namespace networkprotocoldsl;
 
   operation::LexicalPadGet g1("unknown");
@@ -20,7 +20,7 @@ TEST(operator_lexicalpad, get_nameerror) {
             std::get<value::RuntimeError>(std::get<Value>(i1.get_result())));
 }
 
-TEST(operator_lexicalpad, set_nameerror) {
+TEST(Test_008_lexicalpad, set_nameerror) {
   using namespace networkprotocoldsl;
 
   operation::LexicalPadSet s1("unknown");
@@ -39,7 +39,7 @@ TEST(operator_lexicalpad, set_nameerror) {
             std::get<value::RuntimeError>(std::get<Value>(i1.get_result())));
 }
 
-TEST(operator_lexicalpad, initialize_get_and_set) {
+TEST(Test_008_lexicalpad, initialize_get_and_set) {
   using namespace networkprotocoldsl;
 
   operation::LexicalPadInitialize init("a");
@@ -75,7 +75,7 @@ TEST(operator_lexicalpad, initialize_get_and_set) {
   ASSERT_EQ(20, std::get<int32_t>(std::get<Value>(i1.get_result())));
 }
 
-TEST(operator_lexicalpad, initialize_global) {
+TEST(Test_008_lexicalpad, initialize_global) {
   using namespace networkprotocoldsl;
 
   operation::LexicalPadInitializeGlobal init("a");

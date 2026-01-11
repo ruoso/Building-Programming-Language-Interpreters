@@ -11,7 +11,7 @@
 using namespace networkprotocoldsl;
 using namespace networkprotocoldsl::codegen;
 
-class GenerateDataTypesTest : public ::testing::Test {
+class Test_032_codegen_generate_data_types_GenerateDataTypesTest : public ::testing::Test {
 protected:
   std::shared_ptr<const sema::ast::Protocol> protocol_;
   std::unique_ptr<OutputContext> ctx_;
@@ -41,20 +41,20 @@ protected:
   }
 };
 
-TEST_F(GenerateDataTypesTest, GeneratesHeader) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, GeneratesHeader) {
   auto result = generate_data_types(*ctx_, *info_);
 
   EXPECT_FALSE(result.header.empty());
   EXPECT_TRUE(result.errors.empty());
 }
 
-TEST_F(GenerateDataTypesTest, GeneratesSource) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, GeneratesSource) {
   auto result = generate_data_types(*ctx_, *info_);
 
   EXPECT_FALSE(result.source.empty());
 }
 
-TEST_F(GenerateDataTypesTest, HeaderHasGuard) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, HeaderHasGuard) {
   auto result = generate_data_types(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#ifndef") != std::string::npos);
@@ -62,13 +62,13 @@ TEST_F(GenerateDataTypesTest, HeaderHasGuard) {
   EXPECT_TRUE(result.header.find("#endif") != std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, HeaderHasNamespace) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, HeaderHasNamespace) {
   auto result = generate_data_types(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("namespace test::http") != std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, HeaderHasDataStructs) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, HeaderHasDataStructs) {
   auto result = generate_data_types(*ctx_, *info_);
 
   // Should contain struct definitions for messages
@@ -76,7 +76,7 @@ TEST_F(GenerateDataTypesTest, HeaderHasDataStructs) {
   EXPECT_TRUE(result.header.find("Data") != std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, HeaderHasRequiredIncludes) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, HeaderHasRequiredIncludes) {
   auto result = generate_data_types(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#include <cstdint>") != std::string::npos);
@@ -84,62 +84,62 @@ TEST_F(GenerateDataTypesTest, HeaderHasRequiredIncludes) {
   EXPECT_TRUE(result.header.find("#include <vector>") != std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, SourceIncludesHeader) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, SourceIncludesHeader) {
   auto result = generate_data_types(*ctx_, *info_);
 
   EXPECT_TRUE(result.source.find("#include \"data_types.hpp\"") !=
               std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, SourceHasNamespace) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, SourceHasNamespace) {
   auto result = generate_data_types(*ctx_, *info_);
 
   EXPECT_TRUE(result.source.find("namespace test::http") != std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, GeneratesHTTPRequestData) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, GeneratesHTTPRequestData) {
   auto result = generate_data_types(*ctx_, *info_);
 
   // Should have HTTPRequestData struct
   EXPECT_TRUE(result.header.find("HTTPRequestData") != std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, GeneratesHTTPResponseData) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, GeneratesHTTPResponseData) {
   auto result = generate_data_types(*ctx_, *info_);
 
   // Should have HTTPResponseData struct
   EXPECT_TRUE(result.header.find("HTTPResponseData") != std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, HasStringFields) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, HasStringFields) {
   auto result = generate_data_types(*ctx_, *info_);
 
   // HTTP Request has verb, request_target which are strings
   EXPECT_TRUE(result.header.find("std::string") != std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, HasIntFields) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, HasIntFields) {
   auto result = generate_data_types(*ctx_, *info_);
 
   // HTTP has major_version, minor_version which are integers
   EXPECT_TRUE(result.header.find("uint8_t") != std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, HasVectorFields) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, HasVectorFields) {
   auto result = generate_data_types(*ctx_, *info_);
 
   // HTTP has headers which is an array
   EXPECT_TRUE(result.header.find("std::vector") != std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, GeneratesEmptyStructForDatalessMessage) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, GeneratesEmptyStructForDatalessMessage) {
   auto result = generate_data_types(*ctx_, *info_);
 
   // "Client Closes Connection" has no data
   EXPECT_TRUE(result.header.find("ClientClosesConnectionData") != std::string::npos);
 }
 
-TEST_F(GenerateDataTypesTest, ClosingBracesMatch) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, ClosingBracesMatch) {
   auto result = generate_data_types(*ctx_, *info_);
 
   // Count opening and closing braces - they should match
@@ -152,7 +152,7 @@ TEST_F(GenerateDataTypesTest, ClosingBracesMatch) {
   EXPECT_EQ(open_braces, close_braces) << "Braces should be balanced in header";
 }
 
-TEST_F(GenerateDataTypesTest, NoErrorsReported) {
+TEST_F(Test_032_codegen_generate_data_types_GenerateDataTypesTest, NoErrorsReported) {
   auto result = generate_data_types(*ctx_, *info_);
 
   EXPECT_TRUE(result.errors.empty()) 

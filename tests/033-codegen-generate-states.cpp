@@ -11,7 +11,7 @@
 using namespace networkprotocoldsl;
 using namespace networkprotocoldsl::codegen;
 
-class GenerateStatesTest : public ::testing::Test {
+class Test_033_codegen_generate_states_GenerateStatesTest : public ::testing::Test {
 protected:
   std::shared_ptr<const sema::ast::Protocol> protocol_;
   std::unique_ptr<OutputContext> ctx_;
@@ -41,26 +41,26 @@ protected:
   }
 };
 
-TEST_F(GenerateStatesTest, GeneratesHeader) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, GeneratesHeader) {
   auto result = generate_states(*ctx_, *info_);
 
   EXPECT_FALSE(result.header.empty());
   EXPECT_TRUE(result.errors.empty());
 }
 
-TEST_F(GenerateStatesTest, GeneratesSource) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, GeneratesSource) {
   auto result = generate_states(*ctx_, *info_);
 
   EXPECT_FALSE(result.source.empty());
 }
 
-TEST_F(GenerateStatesTest, HeaderHasStateEnum) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, HeaderHasStateEnum) {
   auto result = generate_states(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("enum class State") != std::string::npos);
 }
 
-TEST_F(GenerateStatesTest, HeaderHasExpectedStates) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, HeaderHasExpectedStates) {
   auto result = generate_states(*ctx_, *info_);
 
   // Should have Open, Closed, AwaitResponse states
@@ -69,21 +69,21 @@ TEST_F(GenerateStatesTest, HeaderHasExpectedStates) {
   EXPECT_TRUE(result.header.find("AwaitResponse") != std::string::npos);
 }
 
-TEST_F(GenerateStatesTest, HeaderHasVariantTypes) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, HeaderHasVariantTypes) {
   auto result = generate_states(*ctx_, *info_);
 
   // Should have variant types for inputs/outputs
   EXPECT_TRUE(result.header.find("std::variant") != std::string::npos);
 }
 
-TEST_F(GenerateStatesTest, HeaderIncludesDataTypes) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, HeaderIncludesDataTypes) {
   auto result = generate_states(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#include \"data_types.hpp\"") !=
               std::string::npos);
 }
 
-TEST_F(GenerateStatesTest, HeaderHasGuard) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, HeaderHasGuard) {
   auto result = generate_states(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#ifndef") != std::string::npos);
@@ -91,41 +91,41 @@ TEST_F(GenerateStatesTest, HeaderHasGuard) {
   EXPECT_TRUE(result.header.find("#endif") != std::string::npos);
 }
 
-TEST_F(GenerateStatesTest, HeaderHasNamespace) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, HeaderHasNamespace) {
   auto result = generate_states(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("namespace test::http") != std::string::npos);
 }
 
-TEST_F(GenerateStatesTest, SourceIncludesHeader) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, SourceIncludesHeader) {
   auto result = generate_states(*ctx_, *info_);
 
   EXPECT_TRUE(result.source.find("#include \"states.hpp\"") !=
               std::string::npos);
 }
 
-TEST_F(GenerateStatesTest, HasOutputVariantTypes) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, HasOutputVariantTypes) {
   auto result = generate_states(*ctx_, *info_);
 
   // Should have Output variant types for states that have outgoing transitions
   EXPECT_TRUE(result.header.find("Output = std::variant") != std::string::npos);
 }
 
-TEST_F(GenerateStatesTest, HasInputVariantTypes) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, HasInputVariantTypes) {
   auto result = generate_states(*ctx_, *info_);
 
   // Should have Input variant types for states that have incoming transitions
   EXPECT_TRUE(result.header.find("Input = std::variant") != std::string::npos);
 }
 
-TEST_F(GenerateStatesTest, VariantsReferenceDataTypes) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, VariantsReferenceDataTypes) {
   auto result = generate_states(*ctx_, *info_);
 
   // Variants should reference *Data types
   EXPECT_TRUE(result.header.find("Data") != std::string::npos);
 }
 
-TEST_F(GenerateStatesTest, ClosedInputExists) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, ClosedInputExists) {
   auto result = generate_states(*ctx_, *info_);
 
   // Closed state should have an Input variant for the final message received
@@ -133,14 +133,14 @@ TEST_F(GenerateStatesTest, ClosedInputExists) {
       << "Closed state should have an Input type for the message that closes the connection";
 }
 
-TEST_F(GenerateStatesTest, StateEnumIsEnumClass) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, StateEnumIsEnumClass) {
   auto result = generate_states(*ctx_, *info_);
 
   // Should be a scoped enum
   EXPECT_TRUE(result.header.find("enum class State") != std::string::npos);
 }
 
-TEST_F(GenerateStatesTest, ClosingBracesMatch) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, ClosingBracesMatch) {
   auto result = generate_states(*ctx_, *info_);
 
   // Count opening and closing braces - they should match
@@ -153,7 +153,7 @@ TEST_F(GenerateStatesTest, ClosingBracesMatch) {
   EXPECT_EQ(open_braces, close_braces) << "Braces should be balanced in header";
 }
 
-TEST_F(GenerateStatesTest, NoErrorsReported) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, NoErrorsReported) {
   auto result = generate_states(*ctx_, *info_);
 
   EXPECT_TRUE(result.errors.empty())
@@ -161,7 +161,7 @@ TEST_F(GenerateStatesTest, NoErrorsReported) {
       << (result.errors.empty() ? "" : result.errors[0]);
 }
 
-TEST_F(GenerateStatesTest, StateEnumEndsWithComma) {
+TEST_F(Test_033_codegen_generate_states_GenerateStatesTest, StateEnumEndsWithComma) {
   auto result = generate_states(*ctx_, *info_);
 
   // Each state enum value should be followed by comma

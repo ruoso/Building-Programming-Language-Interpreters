@@ -31,7 +31,7 @@ TypeParameterValue make_bool_param(bool value) {
   return std::make_shared<const BooleanLiteral>(*literal);
 }
 
-TEST(TypeMappingTest, IntUnsigned8Bits) {
+TEST(Test_030_codegen_typemapping, IntUnsigned8Bits) {
   TypeParameterMap params;
   params["unsigned"] = make_bool_param(true);
   params["bits"] = make_int_param(8);
@@ -44,7 +44,7 @@ TEST(TypeMappingTest, IntUnsigned8Bits) {
   EXPECT_TRUE(result->auxiliary_definitions.empty());
 }
 
-TEST(TypeMappingTest, IntSigned32Bits) {
+TEST(Test_030_codegen_typemapping, IntSigned32Bits) {
   TypeParameterMap params;
   params["unsigned"] = make_bool_param(false);
   params["bits"] = make_int_param(32);
@@ -56,7 +56,7 @@ TEST(TypeMappingTest, IntSigned32Bits) {
   EXPECT_EQ(result->cpp_type, "int32_t");
 }
 
-TEST(TypeMappingTest, IntUnsigned64Bits) {
+TEST(Test_030_codegen_typemapping, IntUnsigned64Bits) {
   TypeParameterMap params;
   params["unsigned"] = make_bool_param(true);
   params["bits"] = make_int_param(64);
@@ -68,7 +68,7 @@ TEST(TypeMappingTest, IntUnsigned64Bits) {
   EXPECT_EQ(result->cpp_type, "uint64_t");
 }
 
-TEST(TypeMappingTest, IntDefaultsTo32Bits) {
+TEST(Test_030_codegen_typemapping, IntDefaultsTo32Bits) {
   TypeParameterMap params;
   // No bits parameter - should default to 32
 
@@ -79,7 +79,7 @@ TEST(TypeMappingTest, IntDefaultsTo32Bits) {
   EXPECT_EQ(result->cpp_type, "int32_t");
 }
 
-TEST(TypeMappingTest, IntUnsignedDefaultsToFalse) {
+TEST(Test_030_codegen_typemapping, IntUnsignedDefaultsToFalse) {
   TypeParameterMap params;
   params["bits"] = make_int_param(16);
   // No unsigned parameter - should default to false
@@ -91,7 +91,7 @@ TEST(TypeMappingTest, IntUnsignedDefaultsToFalse) {
   EXPECT_EQ(result->cpp_type, "int16_t");
 }
 
-TEST(TypeMappingTest, StrType) {
+TEST(Test_030_codegen_typemapping, StrType) {
   auto type = make_type("str", {});
   auto result = type_to_cpp(type, "test_field");
 
@@ -99,7 +99,7 @@ TEST(TypeMappingTest, StrType) {
   EXPECT_EQ(result->cpp_type, "std::string");
 }
 
-TEST(TypeMappingTest, ArrayOfStrings) {
+TEST(Test_030_codegen_typemapping, ArrayOfStrings) {
   // Create element type (str)
   auto str_type = make_type("str", {});
 
@@ -114,7 +114,7 @@ TEST(TypeMappingTest, ArrayOfStrings) {
   EXPECT_EQ(result->cpp_type, "std::vector<std::string>");
 }
 
-TEST(TypeMappingTest, ArrayOfInts) {
+TEST(Test_030_codegen_typemapping, ArrayOfInts) {
   // Create element type (int)
   TypeParameterMap int_params;
   int_params["bits"] = make_int_param(32);
@@ -131,7 +131,7 @@ TEST(TypeMappingTest, ArrayOfInts) {
   EXPECT_EQ(result->cpp_type, "std::vector<int32_t>");
 }
 
-TEST(TypeMappingTest, MessageNameToIdentifier) {
+TEST(Test_030_codegen_typemapping, MessageNameToIdentifier) {
   EXPECT_EQ(message_name_to_identifier("SMTP Server Greeting"),
             "SMTPServerGreeting");
   EXPECT_EQ(message_name_to_identifier("HTTP Request"), "HTTPRequest");
@@ -140,26 +140,26 @@ TEST(TypeMappingTest, MessageNameToIdentifier) {
             "ClientClosesConnection");
 }
 
-TEST(TypeMappingTest, StateNameToIdentifier) {
+TEST(Test_030_codegen_typemapping, StateNameToIdentifier) {
   EXPECT_EQ(state_name_to_identifier("Open"), "Open");
   EXPECT_EQ(state_name_to_identifier("Closed"), "Closed");
   EXPECT_EQ(state_name_to_identifier("AwaitResponse"), "AwaitResponse");
 }
 
-TEST(TypeMappingTest, UnknownTypeReturnsNullopt) {
+TEST(Test_030_codegen_typemapping, UnknownTypeReturnsNullopt) {
   auto type = make_type("unknown_type", {});
   auto result = type_to_cpp(type, "test_field");
 
   EXPECT_FALSE(result.has_value());
 }
 
-TEST(TypeMappingTest, NullTypeReturnsNullopt) {
+TEST(Test_030_codegen_typemapping, NullTypeReturnsNullopt) {
   auto result = type_to_cpp(nullptr, "test_field");
 
   EXPECT_FALSE(result.has_value());
 }
 
-TEST(TypeMappingTest, ArrayMissingElementTypeReturnsNullopt) {
+TEST(Test_030_codegen_typemapping, ArrayMissingElementTypeReturnsNullopt) {
   // Array with no element_type parameter
   auto type = make_type("array", {});
   auto result = type_to_cpp(type, "test_field");
@@ -167,7 +167,7 @@ TEST(TypeMappingTest, ArrayMissingElementTypeReturnsNullopt) {
   EXPECT_FALSE(result.has_value());
 }
 
-TEST(TypeMappingTest, TupleType) {
+TEST(Test_030_codegen_typemapping, TupleType) {
   // Create a tuple with two fields
   TypeParameterMap tuple_params;
   
@@ -192,7 +192,7 @@ TEST(TypeMappingTest, TupleType) {
   EXPECT_TRUE(result->auxiliary_definitions.find("int32_t value") != std::string::npos);
 }
 
-TEST(TypeMappingTest, ArrayOfTuples) {
+TEST(Test_030_codegen_typemapping, ArrayOfTuples) {
   // Create a tuple type
   TypeParameterMap tuple_params;
   tuple_params["name"] = make_type("str", {});
@@ -211,7 +211,7 @@ TEST(TypeMappingTest, ArrayOfTuples) {
   EXPECT_FALSE(result->auxiliary_definitions.empty());
 }
 
-TEST(TypeMappingTest, IntInvalidBits) {
+TEST(Test_030_codegen_typemapping, IntInvalidBits) {
   // Test with non-standard bit size (e.g., 24 bits)
   TypeParameterMap params;
   params["bits"] = make_int_param(24);
@@ -225,33 +225,33 @@ TEST(TypeMappingTest, IntInvalidBits) {
   (void)result;
 }
 
-TEST(TypeMappingTest, MessageNameWithNumbers) {
+TEST(Test_030_codegen_typemapping, MessageNameWithNumbers) {
   EXPECT_EQ(message_name_to_identifier("HTTP 1.1 Request"),
             "HTTP11Request");
 }
 
-TEST(TypeMappingTest, MessageNameWithSpecialChars) {
+TEST(Test_030_codegen_typemapping, MessageNameWithSpecialChars) {
   EXPECT_EQ(message_name_to_identifier("SMTP:EHLO Command"),
             "SMTPEHLOCommand");
 }
 
-TEST(TypeMappingTest, MessageNameAllLowercase) {
+TEST(Test_030_codegen_typemapping, MessageNameAllLowercase) {
   EXPECT_EQ(message_name_to_identifier("simple message"),
             "SimpleMessage");
 }
 
-TEST(TypeMappingTest, StateNameWithSpaces) {
+TEST(Test_030_codegen_typemapping, StateNameWithSpaces) {
   // State names shouldn't have spaces in well-formed protocols,
   // but test the behavior anyway - spaces are removed
   EXPECT_EQ(state_name_to_identifier("Await Response"), "AwaitResponse");
 }
 
-TEST(TypeMappingTest, StateNameStartingWithDigit) {
+TEST(Test_030_codegen_typemapping, StateNameStartingWithDigit) {
   // State names starting with digits should be prefixed with underscore
   EXPECT_EQ(state_name_to_identifier("123State"), "_123State");
 }
 
-TEST(TypeMappingTest, NestedTupleType) {
+TEST(Test_030_codegen_typemapping, NestedTupleType) {
   // Create inner tuple: tuple<a=int, b=str>
   TypeParameterMap inner_tuple_params;
   TypeParameterMap int_params;
@@ -283,7 +283,7 @@ TEST(TypeMappingTest, NestedTupleType) {
   EXPECT_TRUE(result->auxiliary_definitions.find("std::string b") != std::string::npos);
 }
 
-TEST(TypeMappingTest, ArrayOfNestedTuples) {
+TEST(Test_030_codegen_typemapping, ArrayOfNestedTuples) {
   // Create inner tuple: tuple<id=int>
   TypeParameterMap inner_tuple_params;
   TypeParameterMap int_params;
@@ -308,7 +308,7 @@ TEST(TypeMappingTest, ArrayOfNestedTuples) {
   EXPECT_TRUE(result->auxiliary_definitions.find("std::vector<") != std::string::npos);
 }
 
-TEST(TypeMappingTest, EmptyTupleReturnsNullopt) {
+TEST(Test_030_codegen_typemapping, EmptyTupleReturnsNullopt) {
   // Empty tuple should return nullopt
   auto type = make_type("tuple", {});
   auto result = type_to_cpp(type, "empty_tuple");

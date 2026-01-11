@@ -6,7 +6,7 @@
 using namespace networkprotocoldsl;
 using namespace networkprotocoldsl::operation;
 
-TEST(TransitionLookaheadTest, MatchEOFCondition) {
+TEST(Test_025_transitionlookahead, MatchEOFCondition) {
   TransitionLookahead lookahead{
       {{TransitionLookahead::EOFCondition{}, "EOFState"}}};
 
@@ -21,7 +21,7 @@ TEST(TransitionLookaheadTest, MatchEOFCondition) {
   EXPECT_EQ(*(octets.data), "EOFState");
 }
 
-TEST(TransitionLookaheadTest, MatchUntilTerminatorCondition) {
+TEST(Test_025_transitionlookahead, MatchUntilTerminatorCondition) {
   TransitionLookahead lookahead{
       {{TransitionLookahead::MatchUntilTerminator{"\r\n"}, "TerminatorState"}}};
 
@@ -35,7 +35,7 @@ TEST(TransitionLookaheadTest, MatchUntilTerminatorCondition) {
   EXPECT_EQ(*std::get<value::Octets>(v).data, "TerminatorState");
 }
 
-TEST(TransitionLookaheadTest, MatchStaticStringCondition) {
+TEST(Test_025_transitionlookahead, MatchStaticStringCondition) {
   TransitionLookahead lookahead{
       {std::make_pair<TransitionLookahead::TransitionCondition, std::string>(
           "Hello", "StaticStringState")}};
@@ -50,7 +50,7 @@ TEST(TransitionLookaheadTest, MatchStaticStringCondition) {
   EXPECT_EQ(*(octets.data), "StaticStringState");
 }
 
-TEST(TransitionLookaheadTest, NoMatchCondition) {
+TEST(Test_025_transitionlookahead, NoMatchCondition) {
   TransitionLookahead lookahead{
       {{TransitionLookahead::MatchUntilTerminator{"\r\n"}, "TerminatorState"},
        std::make_pair<TransitionLookahead::TransitionCondition, std::string>(
@@ -66,7 +66,7 @@ TEST(TransitionLookaheadTest, NoMatchCondition) {
             ReasonForBlockedOperation::WaitingForRead);
 }
 
-TEST(TransitionLookaheadTest, ProtocolMismatchError) {
+TEST(Test_025_transitionlookahead, ProtocolMismatchError) {
   TransitionLookahead lookahead{
       {std::make_pair<TransitionLookahead::TransitionCondition, std::string>(
           "Hello", "StaticStringState")}};

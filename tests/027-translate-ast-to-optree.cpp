@@ -18,7 +18,7 @@ static Value _o(const std::string &in) {
   return value::Octets{std::make_shared<std::string>(in)};
 }
 
-TEST(TranslateASTToOptree, Translation) {
+TEST(Test_027_translate_ast_to_optree, Translation) {
   std::string test_file =
       std::string(TEST_DATA_DIR) + "/023-source-code-http-client-server.txt";
 

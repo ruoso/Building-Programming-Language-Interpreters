@@ -4,7 +4,7 @@
 #include <cstring>
 #include <gtest/gtest.h>
 
-TEST(operator_opsequence, interrupt) {
+TEST(Test_007_opsequence, interrupt) {
   using namespace networkprotocoldsl;
 
   operation::Int32Literal il1(10);
@@ -37,7 +37,7 @@ TEST(operator_opsequence, interrupt) {
   ASSERT_EQ(ContinuationState::Exited, i1.step());
 }
 
-TEST(operator_opsequence, fallthrough) {
+TEST(Test_007_opsequence, fallthrough) {
   using namespace networkprotocoldsl;
 
   operation::Int32Literal il1(10);

@@ -4,7 +4,7 @@
 #include <cstring>
 #include <gtest/gtest.h>
 
-TEST(interpreter_global_state, iterate) {
+TEST(Test_004_interpreter_global_state, iterate) {
   using namespace networkprotocoldsl;
 
   operation::Int32Literal il1(10);
@@ -30,7 +30,7 @@ TEST(interpreter_global_state, iterate) {
   ASSERT_EQ(30, std::get<int32_t>(std::get<Value>(i2.get_result())));
 }
 
-TEST(interpreter_global_state, callback) {
+TEST(Test_004_interpreter_global_state, callback) {
   using namespace networkprotocoldsl;
 
   operation::Int32Literal il1(10);
@@ -69,7 +69,7 @@ TEST(interpreter_global_state, callback) {
   ASSERT_EQ(20, std::get<int32_t>(std::get<Value>(i.get_result())));
 }
 
-TEST(interpreter_global_state, input_output) {
+TEST(Test_004_interpreter_global_state, input_output) {
   using namespace networkprotocoldsl;
 
   operation::ReadInt32Native r;

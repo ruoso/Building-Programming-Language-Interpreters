@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 #include <variant>
 
-TEST(tokenizer, match) {
+TEST(Test_015_test_tokenizer, match) {
   using namespace networkprotocoldsl;
   std::string input("message \"HTTP \\\"Request\\\"\" { when: Open; }");
   auto output = lexer::tokenize(input);
@@ -38,7 +38,7 @@ TEST(tokenizer, match) {
           output->at(7)));
 }
 
-TEST(tokenizer, escape_replace_syntax) {
+TEST(Test_015_test_tokenizer, escape_replace_syntax) {
   using namespace networkprotocoldsl;
   // Test tokenizing the escape=replace<"\n", "\r\n "> syntax
   std::string input(R"(tokens<terminator="\r\n", escape=replace<"\n", "\r\n ">> { host })");
@@ -146,7 +146,7 @@ TEST(tokenizer, escape_replace_syntax) {
       << "Token 17 should be '}'";
 }
 
-TEST(tokenizer, windows_line_endings) {
+TEST(Test_015_test_tokenizer, windows_line_endings) {
   using namespace networkprotocoldsl;
   // Test tokenizing with Windows line endings (CRLF)
   std::string input("message \"Test\" {\r\n  when: Open;\r\n}");
@@ -165,7 +165,7 @@ TEST(tokenizer, windows_line_endings) {
   ASSERT_TRUE(std::holds_alternative<lexer::token::punctuation::CurlyBraceClose>(output->at(7)));
 }
 
-TEST(tokenizer, mixed_line_endings) {
+TEST(Test_015_test_tokenizer, mixed_line_endings) {
   using namespace networkprotocoldsl;
   // Test tokenizing with mixed line endings
   // message "A" { when: Open; } message "B" { } = 12 tokens
@@ -175,7 +175,7 @@ TEST(tokenizer, mixed_line_endings) {
   ASSERT_EQ(12, output->size()) << "Should have 12 tokens";
 }
 
-TEST(tokenizer, crlf_comment) {
+TEST(Test_015_test_tokenizer, crlf_comment) {
   using namespace networkprotocoldsl;
   // Test single-line comments with Windows line endings
   std::string input("message \"Test\" { // comment\r\n  when: Open;\r\n}");

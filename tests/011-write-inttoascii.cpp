@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 #include <variant>
 
-TEST(write_inttoascii, good_write) {
+TEST(Test_011_write_inttoascii, good_write) {
   using namespace networkprotocoldsl;
 
   operation::Int32Literal lit(42);

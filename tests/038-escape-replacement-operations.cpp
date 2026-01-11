@@ -13,7 +13,7 @@
 
 // Test escape replacement during reading (parsing)
 // HTTP/1.1 header continuation: "\r\n " on wire becomes "\n" in value
-TEST(EscapeReplacementOperations, ReadWithEscapeReplacement) {
+TEST(Test_038_escape_replacement_operations, ReadWithEscapeReplacement) {
   using namespace networkprotocoldsl;
 
   // Input simulates HTTP header with continuation line:
@@ -60,7 +60,7 @@ TEST(EscapeReplacementOperations, ReadWithEscapeReplacement) {
 }
 
 // Test that reading without escape still works normally
-TEST(EscapeReplacementOperations, ReadWithoutEscape) {
+TEST(Test_038_escape_replacement_operations, ReadWithoutEscape) {
   using namespace networkprotocoldsl;
 
   std::string_view input = "hello world\r\n";
@@ -99,7 +99,7 @@ TEST(EscapeReplacementOperations, ReadWithoutEscape) {
 }
 
 // Test multiple escape sequences in one read
-TEST(EscapeReplacementOperations, ReadWithMultipleEscapes) {
+TEST(Test_038_escape_replacement_operations, ReadWithMultipleEscapes) {
   using namespace networkprotocoldsl;
 
   // Multiple continuation lines
@@ -142,7 +142,7 @@ TEST(EscapeReplacementOperations, ReadWithMultipleEscapes) {
 
 // Test escape replacement during writing (serialization)
 // "\n" in value becomes "\r\n " on wire
-TEST(EscapeReplacementOperations, WriteWithEscapeReplacement) {
+TEST(Test_038_escape_replacement_operations, WriteWithEscapeReplacement) {
   using namespace networkprotocoldsl;
 
   // Value with newlines that should be escaped as continuation lines
@@ -168,7 +168,7 @@ TEST(EscapeReplacementOperations, WriteWithEscapeReplacement) {
 }
 
 // Simpler write test using direct operation invocation
-TEST(EscapeReplacementOperations, WriteWithEscapeReplacementDirect) {
+TEST(Test_038_escape_replacement_operations, WriteWithEscapeReplacementDirect) {
   using namespace networkprotocoldsl;
 
   operation::WriteOctetsWithEscape write_op("\n", "\r\n ");
@@ -191,7 +191,7 @@ TEST(EscapeReplacementOperations, WriteWithEscapeReplacementDirect) {
 }
 
 // Test writing without escape replacement
-TEST(EscapeReplacementOperations, WriteWithoutEscapeDirect) {
+TEST(Test_038_escape_replacement_operations, WriteWithoutEscapeDirect) {
   using namespace networkprotocoldsl;
 
   operation::WriteOctets write_op;
@@ -211,7 +211,7 @@ TEST(EscapeReplacementOperations, WriteWithoutEscapeDirect) {
 }
 
 // Test multiple escapes during write
-TEST(EscapeReplacementOperations, WriteWithMultipleEscapesDirect) {
+TEST(Test_038_escape_replacement_operations, WriteWithMultipleEscapesDirect) {
   using namespace networkprotocoldsl;
 
   operation::WriteOctetsWithEscape write_op("\n", "\r\n ");
@@ -228,7 +228,7 @@ TEST(EscapeReplacementOperations, WriteWithMultipleEscapesDirect) {
 }
 
 // Test roundtrip: write with escape, then read with escape should give original
-TEST(EscapeReplacementOperations, RoundtripEscapeReplacement) {
+TEST(Test_038_escape_replacement_operations, RoundtripEscapeReplacement) {
   using namespace networkprotocoldsl;
 
   // Original value with newlines
@@ -265,7 +265,7 @@ TEST(EscapeReplacementOperations, RoundtripEscapeReplacement) {
 }
 
 // Test stringify methods
-TEST(EscapeReplacementOperations, StringifyWithEscape) {
+TEST(Test_038_escape_replacement_operations, StringifyWithEscape) {
   using namespace networkprotocoldsl;
 
   operation::ReadOctetsUntilTerminator read_op("\r\n", "\n", "\r\n ");
@@ -279,7 +279,7 @@ TEST(EscapeReplacementOperations, StringifyWithEscape) {
   EXPECT_TRUE(write_str.find("escape_sequence") != std::string::npos);
 }
 
-TEST(EscapeReplacementOperations, StringifyWithoutEscape) {
+TEST(Test_038_escape_replacement_operations, StringifyWithoutEscape) {
   using namespace networkprotocoldsl;
 
   operation::ReadOctetsUntilTerminator read_op("\r\n");

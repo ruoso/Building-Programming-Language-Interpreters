@@ -2,4 +2,4 @@
 
 #include <gtest/gtest.h>
 
-TEST(Empty, Empty) {}
+TEST(Test_001_empty, Empty) {}

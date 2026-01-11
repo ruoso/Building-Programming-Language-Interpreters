@@ -4,7 +4,7 @@
 #include <cstring>
 #include <gtest/gtest.h>
 
-TEST(operator_eq, is_equal) {
+TEST(Test_005_operator_eq, is_equal) {
   using namespace networkprotocoldsl;
 
   operation::Int32Literal il1(10);
@@ -23,7 +23,7 @@ TEST(operator_eq, is_equal) {
   ASSERT_EQ(false, std::get<bool>(std::get<Value>(i1.get_result())));
 }
 
-TEST(operator_eq, is_different) {
+TEST(Test_005_operator_eq, is_different) {
   using namespace networkprotocoldsl;
 
   operation::Int32Literal il1(10);

@@ -8,7 +8,7 @@
 
 using namespace networkprotocoldsl;
 
-TEST(MessageDataTest, MessageDataFieldMatch) {
+TEST(Test_019_grammar_message_data, MessageDataFieldMatch) {
   auto maybe_tokens = lexer::tokenize("fieldName: FieldType;");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -22,7 +22,7 @@ TEST(MessageDataTest, MessageDataFieldMatch) {
   ASSERT_EQ(field->second->name->name, "FieldType");
 }
 
-TEST(MessageDataTest, MessageDataFieldWithParamsMatch) {
+TEST(Test_019_grammar_message_data, MessageDataFieldWithParamsMatch) {
   auto maybe_tokens = lexer::tokenize("fieldName: FieldType<foo=42>;");
   ASSERT_TRUE(maybe_tokens.has_value());
   std::vector<lexer::Token> &tokens = maybe_tokens.value();
@@ -43,7 +43,7 @@ TEST(MessageDataTest, MessageDataFieldWithParamsMatch) {
   ASSERT_EQ(42, value->value);
 }
 
-TEST(MessageDataTest, MessageDataMatch) {
+TEST(Test_019_grammar_message_data, MessageDataMatch) {
   auto maybe_tokens =
       lexer::tokenize("data: { param: int; other: foo<bar=42>; }");
   ASSERT_TRUE(maybe_tokens.has_value());

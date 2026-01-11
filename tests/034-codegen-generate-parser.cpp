@@ -11,7 +11,7 @@
 using namespace networkprotocoldsl;
 using namespace networkprotocoldsl::codegen;
 
-class GenerateParserTest : public ::testing::Test {
+class Test_034_codegen_generate_parser_GenerateParserTest : public ::testing::Test {
 protected:
   std::shared_ptr<const sema::ast::Protocol> protocol_;
   std::unique_ptr<OutputContext> ctx_;
@@ -41,20 +41,20 @@ protected:
   }
 };
 
-TEST_F(GenerateParserTest, GeneratesHeader) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, GeneratesHeader) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_FALSE(result.header.empty());
   EXPECT_TRUE(result.errors.empty());
 }
 
-TEST_F(GenerateParserTest, GeneratesSource) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, GeneratesSource) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_FALSE(result.source.empty());
 }
 
-TEST_F(GenerateParserTest, HeaderHasParseStatus) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, HeaderHasParseStatus) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("enum class ParseStatus") !=
@@ -64,7 +64,7 @@ TEST_F(GenerateParserTest, HeaderHasParseStatus) {
   EXPECT_TRUE(result.header.find("Error") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, HeaderHasParseResult) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, HeaderHasParseResult) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("struct ParseResult") != std::string::npos);
@@ -72,7 +72,7 @@ TEST_F(GenerateParserTest, HeaderHasParseResult) {
   EXPECT_TRUE(result.header.find("size_t consumed") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, HeaderHasMessageParsers) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, HeaderHasMessageParsers) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Should have individual parser classes for messages
@@ -80,26 +80,26 @@ TEST_F(GenerateParserTest, HeaderHasMessageParsers) {
   EXPECT_TRUE(result.header.find("class") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, HeaderHasParseMethod) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, HeaderHasParseMethod) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("ParseResult parse(std::string_view input)") !=
               std::string::npos);
 }
 
-TEST_F(GenerateParserTest, HeaderHasResetMethod) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, HeaderHasResetMethod) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("void reset()") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, HeaderHasTakeDataMethod) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, HeaderHasTakeDataMethod) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("take_data()") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, HeaderIncludesRequired) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, HeaderIncludesRequired) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#include <string_view>") !=
@@ -110,7 +110,7 @@ TEST_F(GenerateParserTest, HeaderIncludesRequired) {
               std::string::npos);
 }
 
-TEST_F(GenerateParserTest, HeaderHasGuard) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, HeaderHasGuard) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#ifndef") != std::string::npos);
@@ -118,14 +118,14 @@ TEST_F(GenerateParserTest, HeaderHasGuard) {
   EXPECT_TRUE(result.header.find("#endif") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, SourceIncludesHeader) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, SourceIncludesHeader) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.source.find("#include \"parser.hpp\"") !=
               std::string::npos);
 }
 
-TEST_F(GenerateParserTest, SourceHasImplementation) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, SourceHasImplementation) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Should have implementations of reset, parse, and take_data
@@ -134,7 +134,7 @@ TEST_F(GenerateParserTest, SourceHasImplementation) {
   EXPECT_TRUE(result.source.find("::take_data()") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, HeaderHasMainParserClass) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, HeaderHasMainParserClass) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("class Parser") != std::string::npos);
@@ -142,7 +142,7 @@ TEST_F(GenerateParserTest, HeaderHasMainParserClass) {
   EXPECT_TRUE(result.header.find("get_state()") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, SourceHasStageMachine) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, SourceHasStageMachine) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Parser should use stage-based state machine
@@ -151,70 +151,70 @@ TEST_F(GenerateParserTest, SourceHasStageMachine) {
   EXPECT_TRUE(result.source.find("case") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, SourceHandlesStaticOctets) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, SourceHandlesStaticOctets) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Should have static octet matching (e.g., "HTTP/")
   EXPECT_TRUE(result.source.find("memcmp") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, SourceHandlesTerminators) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, SourceHandlesTerminators) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Should handle terminators like "\r\n"
   EXPECT_TRUE(result.source.find("terminator") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, HasIsCompleteMethod) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, HasIsCompleteMethod) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("is_complete()") != std::string::npos);
   EXPECT_TRUE(result.header.find("complete_") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, SourceReturnsConsumedBytes) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, SourceReturnsConsumedBytes) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Should track consumed bytes
   EXPECT_TRUE(result.source.find("total_consumed") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, SourceHandlesNeedMoreData) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, SourceHandlesNeedMoreData) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Should return NeedMoreData when buffer is incomplete
   EXPECT_TRUE(result.source.find("NeedMoreData") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, SourceHandlesParseError) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, SourceHandlesParseError) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Should return Error on protocol violations
   EXPECT_TRUE(result.source.find("ParseStatus::Error") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, HasBufferFieldsForStringData) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, HasBufferFieldsForStringData) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Should have buffer fields for accumulating string data
   EXPECT_TRUE(result.header.find("_buffer_") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, TakeDataMovesBuffers) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, TakeDataMovesBuffers) {
   auto result = generate_parser(*ctx_, *info_);
 
   // take_data should move data, not copy
   EXPECT_TRUE(result.source.find("std::move") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, ResetClearsBuffers) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, ResetClearsBuffers) {
   auto result = generate_parser(*ctx_, *info_);
 
   // reset should clear buffers
   EXPECT_TRUE(result.source.find(".clear()") != std::string::npos);
 }
 
-TEST_F(GenerateParserTest, NoErrorsReported) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, NoErrorsReported) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.errors.empty())
@@ -222,7 +222,7 @@ TEST_F(GenerateParserTest, NoErrorsReported) {
       << (result.errors.empty() ? "" : result.errors[0]);
 }
 
-TEST_F(GenerateParserTest, LookaheadCodeGenerated) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserTest, LookaheadCodeGenerated) {
   auto result = generate_parser(*ctx_, *info_);
 
   // The lookahead optimization code should be in the generator
@@ -233,7 +233,7 @@ TEST_F(GenerateParserTest, LookaheadCodeGenerated) {
 }
 
 // SMTP-specific parser generation tests
-class GenerateParserSMTPTest : public ::testing::Test {
+class Test_034_codegen_generate_parser_GenerateParserSMTPTest : public ::testing::Test {
 protected:
   std::shared_ptr<const sema::ast::Protocol> protocol_;
   std::unique_ptr<OutputContext> ctx_;
@@ -263,7 +263,7 @@ protected:
   }
 };
 
-TEST_F(GenerateParserSMTPTest, GeneratesValidCode) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserSMTPTest, GeneratesValidCode) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_FALSE(result.header.empty());
@@ -272,14 +272,14 @@ TEST_F(GenerateParserSMTPTest, GeneratesValidCode) {
       << "Errors: " << (result.errors.empty() ? "" : result.errors[0]);
 }
 
-TEST_F(GenerateParserSMTPTest, HasSMTPEHLOCommandParser) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserSMTPTest, HasSMTPEHLOCommandParser) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("SMTPEHLOCommandParser") != std::string::npos)
       << "Should have SMTPEHLOCommandParser class";
 }
 
-TEST_F(GenerateParserSMTPTest, SMTPEHLOCommandParserHasClientDomainField) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserSMTPTest, SMTPEHLOCommandParserHasClientDomainField) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Find the SMTPEHLOCommandParser class
@@ -296,7 +296,7 @@ TEST_F(GenerateParserSMTPTest, SMTPEHLOCommandParserHasClientDomainField) {
       << parser_class;
 }
 
-TEST_F(GenerateParserSMTPTest, SMTPEHLOParserImplementationMatchesEHLOPrefix) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserSMTPTest, SMTPEHLOParserImplementationMatchesEHLOPrefix) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Find the SMTPEHLOCommandParser::parse implementation
@@ -314,7 +314,7 @@ TEST_F(GenerateParserSMTPTest, SMTPEHLOParserImplementationMatchesEHLOPrefix) {
       << parse_func;
 }
 
-TEST_F(GenerateParserSMTPTest, SMTPEHLOParserReturnsCorrectConsumedForValidInput) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserSMTPTest, SMTPEHLOParserReturnsCorrectConsumedForValidInput) {
   auto result = generate_parser(*ctx_, *info_);
 
   // The parse function should:
@@ -342,7 +342,7 @@ TEST_F(GenerateParserSMTPTest, SMTPEHLOParserReturnsCorrectConsumedForValidInput
       << "Should return Complete status";
 }
 
-TEST_F(GenerateParserSMTPTest, HasSMTPQUITCommandFromEHLOParser) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserSMTPTest, HasSMTPQUITCommandFromEHLOParser) {
   auto result = generate_parser(*ctx_, *info_);
 
   // SMTP protocol allows QUIT from EHLO state
@@ -350,7 +350,7 @@ TEST_F(GenerateParserSMTPTest, HasSMTPQUITCommandFromEHLOParser) {
       << "Should have SMTPQUITCommandFromEHLO parser for QUIT command from EHLO state";
 }
 
-TEST_F(GenerateParserSMTPTest, SMTPQUITParserMatchesQUITPrefix) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserSMTPTest, SMTPQUITParserMatchesQUITPrefix) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Find a QUIT parser implementation
@@ -369,7 +369,7 @@ TEST_F(GenerateParserSMTPTest, SMTPQUITParserMatchesQUITPrefix) {
   }
 }
 
-TEST_F(GenerateParserSMTPTest, ParserReturnsErrorOnMismatch) {
+TEST_F(Test_034_codegen_generate_parser_GenerateParserSMTPTest, ParserReturnsErrorOnMismatch) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Parsers should return Error when static octets don't match

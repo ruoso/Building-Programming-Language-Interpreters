@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <variant>
 
-TEST(read_write_static_octets, good_write) {
+TEST(Test_010_read_write_static_octets, good_write) {
   using namespace networkprotocoldsl;
 
   operation::WriteStaticOctets wso("GET");
@@ -48,7 +48,7 @@ TEST(read_write_static_octets, good_write) {
   ASSERT_EQ(true, std::get<bool>(std::get<Value>(i2.get_result())));
 }
 
-TEST(read_write_static_octets, bad_write) {
+TEST(Test_010_read_write_static_octets, bad_write) {
   using namespace networkprotocoldsl;
 
   operation::WriteStaticOctets wso("GOT");

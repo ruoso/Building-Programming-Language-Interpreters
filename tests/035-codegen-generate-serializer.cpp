@@ -11,7 +11,7 @@
 using namespace networkprotocoldsl;
 using namespace networkprotocoldsl::codegen;
 
-class GenerateSerializerTest : public ::testing::Test {
+class Test_035_codegen_generate_serializer_GenerateSerializerTest : public ::testing::Test {
 protected:
   std::shared_ptr<const sema::ast::Protocol> protocol_;
   std::unique_ptr<OutputContext> ctx_;
@@ -41,20 +41,20 @@ protected:
   }
 };
 
-TEST_F(GenerateSerializerTest, GeneratesHeader) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, GeneratesHeader) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_FALSE(result.header.empty());
   EXPECT_TRUE(result.errors.empty());
 }
 
-TEST_F(GenerateSerializerTest, GeneratesSource) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, GeneratesSource) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_FALSE(result.source.empty());
 }
 
-TEST_F(GenerateSerializerTest, HeaderHasGuard) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderHasGuard) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#ifndef") != std::string::npos);
@@ -62,40 +62,40 @@ TEST_F(GenerateSerializerTest, HeaderHasGuard) {
   EXPECT_TRUE(result.header.find("#endif") != std::string::npos);
 }
 
-TEST_F(GenerateSerializerTest, HeaderHasNamespace) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderHasNamespace) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("namespace test::http") != std::string::npos);
 }
 
-TEST_F(GenerateSerializerTest, HeaderIncludesDataTypes) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderIncludesDataTypes) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#include \"data_types.hpp\"") !=
               std::string::npos);
 }
 
-TEST_F(GenerateSerializerTest, SourceIncludesHeader) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, SourceIncludesHeader) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.source.find("#include \"serializer.hpp\"") !=
               std::string::npos);
 }
 
-TEST_F(GenerateSerializerTest, SourceHasNamespace) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, SourceHasNamespace) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.source.find("namespace test::http") != std::string::npos);
 }
 
-TEST_F(GenerateSerializerTest, HeaderIncludesStates) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderIncludesStates) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#include \"states.hpp\"") !=
               std::string::npos);
 }
 
-TEST_F(GenerateSerializerTest, ClosingBracesMatch) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, ClosingBracesMatch) {
   auto result = generate_serializer(*ctx_, *info_);
 
   // Count opening and closing braces - they should match
@@ -108,7 +108,7 @@ TEST_F(GenerateSerializerTest, ClosingBracesMatch) {
   EXPECT_EQ(open_braces, close_braces) << "Braces should be balanced in header";
 }
 
-TEST_F(GenerateSerializerTest, NoErrorsReported) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, NoErrorsReported) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.errors.empty())
@@ -118,13 +118,13 @@ TEST_F(GenerateSerializerTest, NoErrorsReported) {
 
 // Tests for future implementation - these will need updating when serializer is complete
 
-TEST_F(GenerateSerializerTest, HeaderHasIncludeString) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderHasIncludeString) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#include <string>") != std::string::npos);
 }
 
-TEST_F(GenerateSerializerTest, HeaderHasMessageSerializerClasses) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderHasMessageSerializerClasses) {
   auto result = generate_serializer(*ctx_, *info_);
 
   // Should have serializer classes for write transitions
@@ -133,42 +133,42 @@ TEST_F(GenerateSerializerTest, HeaderHasMessageSerializerClasses) {
       << "Should have HTTPRequestSerializer class";
 }
 
-TEST_F(GenerateSerializerTest, HeaderHasSetDataMethod) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderHasSetDataMethod) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("void set_data(") != std::string::npos)
       << "Serializers should have set_data method";
 }
 
-TEST_F(GenerateSerializerTest, HeaderHasResetMethod) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderHasResetMethod) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("void reset()") != std::string::npos)
       << "Serializers should have reset method";
 }
 
-TEST_F(GenerateSerializerTest, HeaderHasNextChunkMethod) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderHasNextChunkMethod) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("next_chunk()") != std::string::npos)
       << "Serializers should have next_chunk method";
 }
 
-TEST_F(GenerateSerializerTest, HeaderHasAdvanceMethod) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderHasAdvanceMethod) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("void advance()") != std::string::npos)
       << "Serializers should have advance method";
 }
 
-TEST_F(GenerateSerializerTest, HeaderHasIsCompleteMethod) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderHasIsCompleteMethod) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("is_complete()") != std::string::npos)
       << "Serializers should have is_complete method";
 }
 
-TEST_F(GenerateSerializerTest, SourceHasStateMachine) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, SourceHasStateMachine) {
   auto result = generate_serializer(*ctx_, *info_);
 
   // Should have switch statements for stage handling
@@ -176,7 +176,7 @@ TEST_F(GenerateSerializerTest, SourceHasStateMachine) {
       << "Source should have stage-based state machine";
 }
 
-TEST_F(GenerateSerializerTest, SourceHandlesStaticOctets) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, SourceHandlesStaticOctets) {
   auto result = generate_serializer(*ctx_, *info_);
 
   // HTTP protocol has static octets like "HTTP/"
@@ -185,7 +185,7 @@ TEST_F(GenerateSerializerTest, SourceHandlesStaticOctets) {
       << "Source should handle static octets";
 }
 
-TEST_F(GenerateSerializerTest, SourceHandlesLoops) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, SourceHandlesLoops) {
   auto result = generate_serializer(*ctx_, *info_);
 
   // HTTP protocol has loops for headers
@@ -193,7 +193,7 @@ TEST_F(GenerateSerializerTest, SourceHandlesLoops) {
       << "Source should handle loops with loop_index_";
 }
 
-TEST_F(GenerateSerializerTest, SourceBalancedBraces) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, SourceBalancedBraces) {
   auto result = generate_serializer(*ctx_, *info_);
 
   int open_braces = 0;
@@ -205,28 +205,28 @@ TEST_F(GenerateSerializerTest, SourceBalancedBraces) {
   EXPECT_EQ(open_braces, close_braces) << "Braces should be balanced in source";
 }
 
-TEST_F(GenerateSerializerTest, HeaderHasAutoGeneratedComment) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderHasAutoGeneratedComment) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("auto-generated") != std::string::npos)
       << "Header should have auto-generated comment";
 }
 
-TEST_F(GenerateSerializerTest, SourceHasAutoGeneratedComment) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, SourceHasAutoGeneratedComment) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.source.find("auto-generated") != std::string::npos)
       << "Source should have auto-generated comment";
 }
 
-TEST_F(GenerateSerializerTest, HeaderIncludesUtility) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, HeaderIncludesUtility) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.header.find("#include <utility>") != std::string::npos)
       << "Header should include <utility> for std::move";
 }
 
-TEST_F(GenerateSerializerTest, AdvanceMarksCompleteAtEnd) {
+TEST_F(Test_035_codegen_generate_serializer_GenerateSerializerTest, AdvanceMarksCompleteAtEnd) {
   auto result = generate_serializer(*ctx_, *info_);
 
   // The advance() method should mark complete when reaching final stage

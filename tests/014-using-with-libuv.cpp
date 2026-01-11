@@ -330,7 +330,7 @@ static void no_longer_accepting_connections(uv_handle_t *handle) {
   data->orun.exit_when_done.store(true);
 }
 
-TEST(client_and_server, complete) {
+TEST(Test_014_using_with_libuv, complete) {
   operation::FunctionCall function_call;
   operation::DynamicList dynamic_list;
   operation::LexicalPadGet get_argv("argv");

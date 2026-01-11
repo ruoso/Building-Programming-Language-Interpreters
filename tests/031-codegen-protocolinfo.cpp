@@ -10,7 +10,7 @@
 using namespace networkprotocoldsl;
 using namespace networkprotocoldsl::codegen;
 
-class ProtocolInfoTest : public ::testing::Test {
+class Test_031_codegen_protocolinfo_ProtocolInfoTest : public ::testing::Test {
 protected:
   std::shared_ptr<const sema::ast::Protocol> protocol_;
 
@@ -35,7 +35,7 @@ protected:
   }
 };
 
-TEST_F(ProtocolInfoTest, CollectsStates) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, CollectsStates) {
   ProtocolInfo info(protocol_);
 
   const auto &states = info.states();
@@ -47,7 +47,7 @@ TEST_F(ProtocolInfoTest, CollectsStates) {
   EXPECT_TRUE(states.count("AwaitResponse") > 0);
 }
 
-TEST_F(ProtocolInfoTest, CollectsMessages) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, CollectsMessages) {
   ProtocolInfo info(protocol_);
 
   const auto &messages = info.messages();
@@ -70,7 +70,7 @@ TEST_F(ProtocolInfoTest, CollectsMessages) {
   EXPECT_TRUE(found_http_response);
 }
 
-TEST_F(ProtocolInfoTest, CollectsReadTransitions) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, CollectsReadTransitions) {
   ProtocolInfo info(protocol_);
 
   const auto &read_transitions = info.read_transitions();
@@ -86,7 +86,7 @@ TEST_F(ProtocolInfoTest, CollectsReadTransitions) {
   }
 }
 
-TEST_F(ProtocolInfoTest, CollectsWriteTransitions) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, CollectsWriteTransitions) {
   ProtocolInfo info(protocol_);
 
   const auto &write_transitions = info.write_transitions();
@@ -101,7 +101,7 @@ TEST_F(ProtocolInfoTest, CollectsWriteTransitions) {
   }
 }
 
-TEST_F(ProtocolInfoTest, MessageInfoHasCorrectFields) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, MessageInfoHasCorrectFields) {
   ProtocolInfo info(protocol_);
 
   const auto &messages = info.messages();
@@ -121,7 +121,7 @@ TEST_F(ProtocolInfoTest, MessageInfoHasCorrectFields) {
   }
 }
 
-TEST_F(ProtocolInfoTest, ProtocolAccessor) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, ProtocolAccessor) {
   ProtocolInfo info(protocol_);
 
   // Should be able to access the original protocol
@@ -130,7 +130,7 @@ TEST_F(ProtocolInfoTest, ProtocolAccessor) {
   EXPECT_TRUE(info.protocol()->server != nullptr);
 }
 
-TEST_F(ProtocolInfoTest, ReadTransitionsHaveActions) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, ReadTransitionsHaveActions) {
   ProtocolInfo info(protocol_);
 
   const auto &read_transitions = info.read_transitions();
@@ -146,7 +146,7 @@ TEST_F(ProtocolInfoTest, ReadTransitionsHaveActions) {
   EXPECT_TRUE(has_actions) << "At least one read transition should have actions";
 }
 
-TEST_F(ProtocolInfoTest, WriteTransitionsHaveActions) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, WriteTransitionsHaveActions) {
   ProtocolInfo info(protocol_);
 
   const auto &write_transitions = info.write_transitions();
@@ -162,7 +162,7 @@ TEST_F(ProtocolInfoTest, WriteTransitionsHaveActions) {
   EXPECT_TRUE(has_actions) << "At least one write transition should have actions";
 }
 
-TEST_F(ProtocolInfoTest, MessagesHaveDataOrEmpty) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, MessagesHaveDataOrEmpty) {
   ProtocolInfo info(protocol_);
 
   const auto &messages = info.messages();
@@ -178,7 +178,7 @@ TEST_F(ProtocolInfoTest, MessagesHaveDataOrEmpty) {
   }
 }
 
-TEST_F(ProtocolInfoTest, StatesFormConnectedGraph) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, StatesFormConnectedGraph) {
   ProtocolInfo info(protocol_);
 
   const auto &states = info.states();
@@ -193,7 +193,7 @@ TEST_F(ProtocolInfoTest, StatesFormConnectedGraph) {
   }
 }
 
-TEST_F(ProtocolInfoTest, ClientAndServerTransitions) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, ClientAndServerTransitions) {
   ProtocolInfo info(protocol_);
 
   const auto &read_trans = info.read_transitions();
@@ -206,7 +206,7 @@ TEST_F(ProtocolInfoTest, ClientAndServerTransitions) {
   EXPECT_FALSE(write_trans.empty()) << "Should have write transitions";
 }
 
-TEST_F(ProtocolInfoTest, TerminalStateIncluded) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, TerminalStateIncluded) {
   ProtocolInfo info(protocol_);
 
   const auto &states = info.states();
@@ -229,7 +229,7 @@ TEST_F(ProtocolInfoTest, TerminalStateIncluded) {
       << "Terminal state 'Closed' should not have outgoing transitions";
 }
 
-TEST_F(ProtocolInfoTest, NoDuplicateMessages) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, NoDuplicateMessages) {
   ProtocolInfo info(protocol_);
 
   const auto &messages = info.messages();
@@ -241,7 +241,7 @@ TEST_F(ProtocolInfoTest, NoDuplicateMessages) {
   }
 }
 
-TEST_F(ProtocolInfoTest, NoDuplicateReadTransitions) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, NoDuplicateReadTransitions) {
   ProtocolInfo info(protocol_);
 
   const auto &read_transitions = info.read_transitions();
@@ -253,7 +253,7 @@ TEST_F(ProtocolInfoTest, NoDuplicateReadTransitions) {
   }
 }
 
-TEST_F(ProtocolInfoTest, NoDuplicateWriteTransitions) {
+TEST_F(Test_031_codegen_protocolinfo_ProtocolInfoTest, NoDuplicateWriteTransitions) {
   ProtocolInfo info(protocol_);
 
   const auto &write_transitions = info.write_transitions();
@@ -266,7 +266,7 @@ TEST_F(ProtocolInfoTest, NoDuplicateWriteTransitions) {
 }
 
 // Test with empty/minimal protocol
-TEST(ProtocolInfoEmptyTest, EmptyProtocol) {
+TEST(Test_031_codegen_protocolinfo, EmptyProtocol) {
   // Create an empty protocol
   auto protocol = std::make_shared<sema::ast::Protocol>();
   protocol->client = nullptr;
@@ -282,7 +282,7 @@ TEST(ProtocolInfoEmptyTest, EmptyProtocol) {
   EXPECT_EQ(info.protocol(), protocol);
 }
 
-TEST(ProtocolInfoEmptyTest, ClientOnlyProtocol) {
+TEST(Test_031_codegen_protocolinfo, ClientOnlyProtocol) {
   // Create a protocol with only client agent
   auto protocol = std::make_shared<sema::ast::Protocol>();
   auto client = std::make_shared<sema::ast::Agent>();
@@ -297,7 +297,7 @@ TEST(ProtocolInfoEmptyTest, ClientOnlyProtocol) {
   EXPECT_EQ(info.protocol(), protocol);
 }
 
-TEST(ProtocolInfoEmptyTest, ServerOnlyProtocol) {
+TEST(Test_031_codegen_protocolinfo, ServerOnlyProtocol) {
   // Create a protocol with only server agent
   auto protocol = std::make_shared<sema::ast::Protocol>();
   protocol->client = nullptr;

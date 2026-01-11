@@ -8,7 +8,7 @@
 using namespace networkprotocoldsl;
 using namespace networkprotocoldsl::operation;
 
-TEST(StateMachineOperationTest, BasicStateTransition) {
+TEST(Test_026_statemachineoperator, BasicStateTransition) {
   // Define the state machine
   StateMachineOperation::StateMap states;
 

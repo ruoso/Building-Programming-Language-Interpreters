@@ -8,7 +8,7 @@
 
 using namespace networkprotocoldsl;
 
-TEST(MessageTest, Message) {
+TEST(Test_022_grammar_message, Message) {
   auto maybe_tokens = lexer::tokenize(
       "message \"HTTP Request\" { "
       "    when: Open; "

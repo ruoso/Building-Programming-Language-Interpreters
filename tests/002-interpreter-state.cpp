@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <string>
 
-TEST(starting_the_interpreter, empty_program) {
+TEST(Test_002_interpreter_state, empty_program) {
   std::string test_file =
       std::string(TEST_DATA_DIR) + "/002-empty-program.networkprotocoldsl";
   auto maybe_program =

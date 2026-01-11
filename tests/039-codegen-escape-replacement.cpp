@@ -12,7 +12,7 @@
 using namespace networkprotocoldsl;
 using namespace networkprotocoldsl::codegen;
 
-class EscapeReplacementCodegenTest : public ::testing::Test {
+class Test_039_codegen_escape_replacement_EscapeReplacementCodegenTest : public ::testing::Test {
 protected:
   std::shared_ptr<const sema::ast::Protocol> protocol_;
   std::unique_ptr<OutputContext> ctx_;
@@ -43,7 +43,7 @@ protected:
 };
 
 // Test that parser code is generated with escape handling
-TEST_F(EscapeReplacementCodegenTest, ParserGeneratesEscapeHandling) {
+TEST_F(Test_039_codegen_escape_replacement_EscapeReplacementCodegenTest, ParserGeneratesEscapeHandling) {
   auto result = generate_parser(*ctx_, *info_);
 
   EXPECT_TRUE(result.errors.empty()) << "Parser generation had errors";
@@ -57,7 +57,7 @@ TEST_F(EscapeReplacementCodegenTest, ParserGeneratesEscapeHandling) {
 }
 
 // Test that parser handles the specific HTTP continuation escape
-TEST_F(EscapeReplacementCodegenTest, ParserHasHTTPContinuationEscape) {
+TEST_F(Test_039_codegen_escape_replacement_EscapeReplacementCodegenTest, ParserHasHTTPContinuationEscape) {
   auto result = generate_parser(*ctx_, *info_);
 
   // Should contain the escape sequence "\r\n " (CRLF + space)
@@ -69,7 +69,7 @@ TEST_F(EscapeReplacementCodegenTest, ParserHasHTTPContinuationEscape) {
 }
 
 // Test that parser has the escape character replacement
-TEST_F(EscapeReplacementCodegenTest, ParserHasEscapeCharReplacement) {
+TEST_F(Test_039_codegen_escape_replacement_EscapeReplacementCodegenTest, ParserHasEscapeCharReplacement) {
   auto result = generate_parser(*ctx_, *info_);
 
   // The parser should insert "\n" when it finds the escape sequence
@@ -82,7 +82,7 @@ TEST_F(EscapeReplacementCodegenTest, ParserHasEscapeCharReplacement) {
 }
 
 // Test that serializer code is generated with escape handling
-TEST_F(EscapeReplacementCodegenTest, SerializerGeneratesEscapeHandling) {
+TEST_F(Test_039_codegen_escape_replacement_EscapeReplacementCodegenTest, SerializerGeneratesEscapeHandling) {
   auto result = generate_serializer(*ctx_, *info_);
 
   EXPECT_TRUE(result.errors.empty()) << "Serializer generation had errors";
@@ -97,7 +97,7 @@ TEST_F(EscapeReplacementCodegenTest, SerializerGeneratesEscapeHandling) {
 }
 
 // Test that serializer has the specific HTTP continuation escape
-TEST_F(EscapeReplacementCodegenTest, SerializerHasHTTPContinuationEscape) {
+TEST_F(Test_039_codegen_escape_replacement_EscapeReplacementCodegenTest, SerializerHasHTTPContinuationEscape) {
   auto result = generate_serializer(*ctx_, *info_);
 
   // Should contain logic to replace "\n" with "\r\n "
@@ -108,7 +108,7 @@ TEST_F(EscapeReplacementCodegenTest, SerializerHasHTTPContinuationEscape) {
 }
 
 // Test that serializer has newline detection
-TEST_F(EscapeReplacementCodegenTest, SerializerHasNewlineDetection) {
+TEST_F(Test_039_codegen_escape_replacement_EscapeReplacementCodegenTest, SerializerHasNewlineDetection) {
   auto result = generate_serializer(*ctx_, *info_);
 
   // Should look for "\n" in the value to escape it
@@ -119,7 +119,7 @@ TEST_F(EscapeReplacementCodegenTest, SerializerHasNewlineDetection) {
 }
 
 // Test that both parser and serializer are generated without errors
-TEST_F(EscapeReplacementCodegenTest, BothGenerateWithoutErrors) {
+TEST_F(Test_039_codegen_escape_replacement_EscapeReplacementCodegenTest, BothGenerateWithoutErrors) {
   auto parser_result = generate_parser(*ctx_, *info_);
   auto serializer_result = generate_serializer(*ctx_, *info_);
 
@@ -130,7 +130,7 @@ TEST_F(EscapeReplacementCodegenTest, BothGenerateWithoutErrors) {
 }
 
 // Test that headers are generated correctly
-TEST_F(EscapeReplacementCodegenTest, HeadersAreGenerated) {
+TEST_F(Test_039_codegen_escape_replacement_EscapeReplacementCodegenTest, HeadersAreGenerated) {
   auto parser_result = generate_parser(*ctx_, *info_);
   auto serializer_result = generate_serializer(*ctx_, *info_);
 
@@ -145,7 +145,7 @@ TEST_F(EscapeReplacementCodegenTest, HeadersAreGenerated) {
 }
 
 // Test that the protocol info correctly identifies escape sequences
-TEST_F(EscapeReplacementCodegenTest, ProtocolInfoHasEscapeInfo) {
+TEST_F(Test_039_codegen_escape_replacement_EscapeReplacementCodegenTest, ProtocolInfoHasEscapeInfo) {
   // Check that the sema correctly parsed the escape info
   // The protocol should have messages with escape-enabled fields
   ASSERT_TRUE(protocol_ != nullptr);

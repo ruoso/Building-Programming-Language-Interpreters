@@ -7,7 +7,7 @@
 
 using namespace networkprotocoldsl;
 
-TEST(LiteralsTest, BooleanLiteralMatchTrue) {
+TEST(Test_016_grammar_literals, BooleanLiteralMatchTrue) {
   std::vector<lexer::Token> tokens = {lexer::token::literal::Boolean(true)};
   auto result =
       parser::grammar::BooleanLiteral::parse(tokens.cbegin(), tokens.cend());
@@ -18,7 +18,7 @@ TEST(LiteralsTest, BooleanLiteralMatchTrue) {
             true);
 }
 
-TEST(LiteralsTest, BooleanLiteralMatchFalse) {
+TEST(Test_016_grammar_literals, BooleanLiteralMatchFalse) {
   std::vector<lexer::Token> tokens = {lexer::token::literal::Boolean(false)};
   auto result =
       parser::grammar::BooleanLiteral::parse(tokens.cbegin(), tokens.cend());
@@ -29,7 +29,7 @@ TEST(LiteralsTest, BooleanLiteralMatchFalse) {
             false);
 }
 
-TEST(LiteralsTest, IntegerLiteralMatch) {
+TEST(Test_016_grammar_literals, IntegerLiteralMatch) {
   std::vector<lexer::Token> tokens = {lexer::token::literal::Integer(42)};
   auto result =
       parser::grammar::IntegerLiteral::parse(tokens.cbegin(), tokens.cend());
@@ -40,7 +40,7 @@ TEST(LiteralsTest, IntegerLiteralMatch) {
             42);
 }
 
-TEST(LiteralsTest, StringLiteralMatch) {
+TEST(Test_016_grammar_literals, StringLiteralMatch) {
   std::vector<lexer::Token> tokens = {lexer::token::literal::String("hello")};
   auto result =
       parser::grammar::StringLiteral::parse(tokens.cbegin(), tokens.cend());

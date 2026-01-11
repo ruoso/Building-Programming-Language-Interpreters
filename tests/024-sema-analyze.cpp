@@ -13,7 +13,7 @@
 
 using namespace networkprotocoldsl;
 
-TEST(MessageTest, Message) {
+TEST(Test_024_sema_analyze, Message) {
   std::string test_file =
       std::string(TEST_DATA_DIR) + "/023-source-code-http-client-server.txt";
   std::ifstream file(test_file);

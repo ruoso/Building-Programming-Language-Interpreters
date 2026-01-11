@@ -29,7 +29,7 @@ namespace fs = std::filesystem;
 using namespace networkprotocoldsl;
 using namespace networkprotocoldsl::codegen;
 
-class CompileSMTPTest : public ::testing::Test {
+class Test_037_codegen_compile_smtp_CompileSMTPTest : public ::testing::Test {
 protected:
   std::shared_ptr<const sema::ast::Protocol> protocol_;
   fs::path temp_dir_;
@@ -108,7 +108,7 @@ protected:
   }
 };
 
-TEST_F(CompileSMTPTest, GeneratorSucceeds) {
+TEST_F(Test_037_codegen_compile_smtp_CompileSMTPTest, GeneratorSucceeds) {
   // Generate with library name to get CMakeLists.txt
   CppGenerator generator(protocol_, "smtp::generated", temp_dir_, "smtp_protocol");
 
@@ -133,7 +133,7 @@ TEST_F(CompileSMTPTest, GeneratorSucceeds) {
   EXPECT_TRUE(fs::exists(temp_dir_ / "CMakeLists.txt"));
 }
 
-TEST_F(CompileSMTPTest, CMakeConfigures) {
+TEST_F(Test_037_codegen_compile_smtp_CompileSMTPTest, CMakeConfigures) {
   CppGenerator generator(protocol_, "smtp::generated", temp_dir_, "smtp_protocol");
   ASSERT_TRUE(generator.generate());
 
@@ -147,7 +147,7 @@ TEST_F(CompileSMTPTest, CMakeConfigures) {
       << output;
 }
 
-TEST_F(CompileSMTPTest, CMakeBuilds) {
+TEST_F(Test_037_codegen_compile_smtp_CompileSMTPTest, CMakeBuilds) {
   CppGenerator generator(protocol_, "smtp::generated", temp_dir_, "smtp_protocol");
   ASSERT_TRUE(generator.generate());
 
@@ -174,7 +174,7 @@ TEST_F(CompileSMTPTest, CMakeBuilds) {
       << "Library was not created at " << lib_path.string();
 }
 
-TEST_F(CompileSMTPTest, GeneratedCodeCanBeUsed) {
+TEST_F(Test_037_codegen_compile_smtp_CompileSMTPTest, GeneratedCodeCanBeUsed) {
   CppGenerator generator(protocol_, "smtp::generated", temp_dir_, "smtp_protocol");
   ASSERT_TRUE(generator.generate());
 
@@ -246,7 +246,7 @@ target_link_libraries(test_usage PRIVATE smtp_protocol)
   }
 }
 
-TEST_F(CompileSMTPTest, GeneratedDataTypesHaveExpectedStructure) {
+TEST_F(Test_037_codegen_compile_smtp_CompileSMTPTest, GeneratedDataTypesHaveExpectedStructure) {
   CppGenerator generator(protocol_, "smtp::generated", temp_dir_, "smtp_protocol");
   ASSERT_TRUE(generator.generate());
 
@@ -264,7 +264,7 @@ TEST_F(CompileSMTPTest, GeneratedDataTypesHaveExpectedStructure) {
       << "Wrong namespace in data_types.hpp";
 }
 
-TEST_F(CompileSMTPTest, GeneratedStatesHaveExpectedStructure) {
+TEST_F(Test_037_codegen_compile_smtp_CompileSMTPTest, GeneratedStatesHaveExpectedStructure) {
   CppGenerator generator(protocol_, "smtp::generated", temp_dir_, "smtp_protocol");
   ASSERT_TRUE(generator.generate());
 
@@ -282,7 +282,7 @@ TEST_F(CompileSMTPTest, GeneratedStatesHaveExpectedStructure) {
       << "Missing Closed state";
 }
 
-TEST_F(CompileSMTPTest, GeneratedCMakeListsHasCorrectContent) {
+TEST_F(Test_037_codegen_compile_smtp_CompileSMTPTest, GeneratedCMakeListsHasCorrectContent) {
   CppGenerator generator(protocol_, "smtp::generated", temp_dir_, "smtp_protocol");
   ASSERT_TRUE(generator.generate());
 

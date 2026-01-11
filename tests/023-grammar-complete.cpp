@@ -10,7 +10,7 @@
 
 using namespace networkprotocoldsl;
 
-TEST(MessageTest, Message) {
+TEST(Test_023_grammar_complete, Message) {
   std::string test_file =
       std::string(TEST_DATA_DIR) + "/023-source-code-http-client-server.txt";
   std::ifstream file(test_file);
@@ -50,7 +50,7 @@ TEST(MessageTest, Message) {
   ASSERT_EQ("Closed", open->then->name);
 }
 
-TEST(MessageTest, HTTPWithContinuationEscape) {
+TEST(Test_023_grammar_complete, HTTPWithContinuationEscape) {
   std::string test_file =
       std::string(TEST_DATA_DIR) + "/038-http-with-continuation.txt";
   std::ifstream file(test_file);

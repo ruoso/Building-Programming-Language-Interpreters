@@ -7,7 +7,7 @@ namespace networkprotocoldsl::operation {
 
 class DynamicList {
 public:
-  Value operator()(std::shared_ptr<std::vector<Value>> args) const;
+  Value operator()(std::shared_ptr<const std::vector<Value>> args) const;
   std::string stringify() const { return "DynamicList{}"; }
 };
 static_assert(DynamicInputOperationConcept<DynamicList>);
